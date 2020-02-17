@@ -6,7 +6,7 @@ const Featured = ({ featured, toggleFeatured, gameId }) => (
     {featured ? (
       <a
         onClick={() => toggleFeatured(gameId)}
-        className="ui right red corner label"
+        className="ui right yellow corner label"
       >
         <i className="icon star"></i>
       </a>

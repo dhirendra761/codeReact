@@ -5,7 +5,7 @@ import GamesList from "./GamesList";
 const games = [
   {
     _id: 1,
-    featured: true,
+    featured: false,
     name: "Quadropolis",
     price: 3299,
     thumbnail:
@@ -15,7 +15,7 @@ const games = [
   },
   {
     _id: 2,
-    featured: false,
+    featured: true,
     name: "Five Tribes",
     price: 5100,
     thumbnail:
@@ -58,9 +58,15 @@ class App extends React.Component {
       games: _orderBy(games, ["featured", "name"], ["desc", "asc"])
     });
   }
-  toggleFeatured(gameId) {
-    alert(gameId);
-  }
+  toggleFeatured = gameId => {
+    console.log(this);
+    const newGames = this.state.games.map(game => {
+      if (game._id === gameId) return { ...game, featured: !game.featured };
+      return game;
+    });
+    this.setState({ games: newGames });
+    console.log("hi");
+  };
   render() {
     return (
       <div className="ui container">
