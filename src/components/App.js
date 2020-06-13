@@ -82,8 +82,8 @@ class App extends React.Component {
       ),
     });
   };
-  showGameForm = () => this.setState({ showGameForm: true });
-  hideGameForm = () => this.setState({ showGameForm: false });
+  showGameForm = () => this.setState({ showGameForm: true, selectedGame: {} });
+  hideGameForm = () => this.setState({ showGameForm: false, selectedGame: {} });
 
   addGame = (game) =>
     this.setState({
