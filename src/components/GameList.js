@@ -1,7 +1,7 @@
 import React from "react";
 import GameCard from "./GameCard";
 import PropTypes from "prop-types";
-const GameList = ({ games, toggleFeatured }) => (
+const GameList = ({ games, toggleFeatured, editGame }) => (
   <div className="ui four cards">
     {games.length === 0 ? (
       <div className="ui icon message">
@@ -13,7 +13,12 @@ const GameList = ({ games, toggleFeatured }) => (
       </div>
     ) : (
       games.map((game) => (
-        <GameCard toggleFeatured={toggleFeatured} game={game} key={game._id} />
+        <GameCard
+          toggleFeatured={toggleFeatured}
+          game={game}
+          key={game._id}
+          editGame={editGame}
+        />
       ))
     )}
   </div>
@@ -21,6 +26,7 @@ const GameList = ({ games, toggleFeatured }) => (
 
 GameList.propTypes = {
   games: PropTypes.arrayOf(PropTypes.object).isRequired,
+  editGame: PropTypes.func.isRequired,
 };
 
 GameList.defaultProps = {
