@@ -85,13 +85,7 @@ class App extends React.Component {
   showGameForm = () => this.setState({ showGameForm: true, selectedGame: {} });
   hideGameForm = () => this.setState({ showGameForm: false, selectedGame: {} });
   saveGame = (game) => (game._id ? this.updateGame(game) : this.addGame(game));
-  updateGame = (game) =>
-    this.setState({
-      games: this.sortGames(
-        this.state.games.map((item) => (item._id === game._id ? game : item))
-      ),
-      showGameForm: false,
-    });
+
   addGame = (game) =>
     this.setState({
       games: this.sortGames([
@@ -103,6 +97,18 @@ class App extends React.Component {
       ]),
       showGameForm: false,
     });
+  updateGame = (game) =>
+    this.setState({
+      games: this.sortGames(
+        this.state.games.map((item) => (item._id === game._id ? game : item))
+      ),
+      showGameForm: false,
+    });
+  deleteGame = (game) =>
+    this.setState({
+      games: this.state.games.filter((item) => item._id !== game._id),
+    });
+
   selectGameForEditing = (game) =>
     this.setState({ selectedGame: game, showGameForm: true });
   render() {
@@ -128,6 +134,7 @@ class App extends React.Component {
               games={this.state.games}
               toggleFeatured={this.toggleFeatured}
               editGame={this.selectGameForEditing}
+              deleteGame={this.deleteGame}
             />
           </div>
         </div>
