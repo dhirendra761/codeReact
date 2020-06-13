@@ -3,10 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "emmet": "^2.1.1",
     "loadash": "^1.0.0",
+    "loadsh": "^0.0.4",
+    "prettier": "^2.0.5",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-image-fallback": "^8.0.0",
     "react-scripts": "3.2.0",
     "semantic-ui-css": "^2.4.1"
   },
