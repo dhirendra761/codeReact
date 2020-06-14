@@ -3,45 +3,11 @@ import GameList from "./GameList";
 import _orderBy from "lodash/orderBy";
 import GameFrom from "./GameFrom";
 import TopNavigation from "./TopNavigation";
+import api from "../api";
 
 const publishers = [
   { _id: 1, name: "Days of Wonder" },
   { _id: 2, name: "Rio Grande Games" },
-];
-const games = [
-  {
-    _id: 1,
-    publisher: 1,
-    featured: false,
-    name: "Quadropolis",
-    price: 3299,
-    thumbnail:
-      "https://cf.geekdo-images.com/BMUcxCZM_AikQ7uXeuDg43RZIWo=/fit-in/246x300/pic2840020.jpg",
-    players: "2-4",
-    duration: 60,
-  },
-  {
-    _id: 2,
-    publisher: 1,
-    featured: false,
-    name: "Five Tribes",
-    price: 5100,
-    thumbnail:
-      "https://cf.geekdo-images.com/o3D15fBxzTt3k2IFZ2u2Xr7Wlyk=/fit-in/246x300/pic2055255.jpg",
-    players: "2-4",
-    duration: 80,
-  },
-  {
-    _id: 3,
-    publisher: 2,
-    featured: false,
-    name: "Roll for the Galaxy",
-    price: 2999,
-    thumbnail:
-      "https://cf.geekdo-images.com/Vi3pvbq9sLk_OHzxio8lzjB_77k=/fit-in/246x300/pic1473629.jpg",
-    players: "2-5",
-    duration: 45,
-  },
 ];
 
 class App extends React.Component {
@@ -50,10 +16,12 @@ class App extends React.Component {
     showGameForm: false,
     selectedGame: {},
   };
+
+  //Best to place APIs
   componentDidMount() {
-    this.setState({
-      games: this.sortGames(games),
-    });
+    api.games
+      .fetchAll()
+      .then((games) => this.setState({ games: this.sortGames(games) }));
   }
   sortGames(games) {
     return _orderBy(games, ["featured", "name"], ["desc", "asc"]);
