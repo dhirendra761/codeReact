@@ -16,13 +16,18 @@ class App extends React.Component {
     games: [],
     showGameForm: false,
     selectedGame: {},
+    loading: true,
   };
 
   //Best to place APIs
   componentDidMount() {
-    api.games
-      .fetchAll()
-      .then((games) => this.setState({ games: this.sortGames(games) }));
+    setTimeout(() => {
+      api.games
+        .fetchAll()
+        .then((games) =>
+          this.setState({ games: this.sortGames(games), loading: false })
+        );
+    }, 2000);
   }
   sortGames(games) {
     return _orderBy(games, ["featured", "name"], ["desc", "asc"]);
@@ -86,10 +91,14 @@ class App extends React.Component {
       })
     );
   deleteGame = (game) =>
-    this.setState({
-      games: this.state.games.filter((item) => item._id !== game._id),
-    });
-
+    // deletethis.setState({
+    //   games: this.state.games.filter((item) => item._id !== game._id),
+    // });
+    api.games.delete(game).then(() =>
+      this.setState({
+        games: this.state.games.filter((item) => item._id !== game._id),
+      })
+    );
   selectGameForEditing = (game) =>
     this.setState({ selectedGame: game, showGameForm: true });
   render() {
@@ -111,12 +120,22 @@ class App extends React.Component {
           )}
 
           <div className={`${numberOfColumns} wide column`}>
-            <GameList
-              games={this.state.games}
-              toggleFeatured={this.toggleFeatured}
-              editGame={this.selectGameForEditing}
-              deleteGame={this.deleteGame}
-            />
+            {this.state.loading ? (
+              <div className="ui icon message">
+                <i className="notched circle loading icon" />
+                <div className="content">
+                  <div className="header">Wait a second!</div>
+                  <p>Loading Game Collections!!..</p>
+                </div>
+              </div>
+            ) : (
+              <GameList
+                games={this.state.games}
+                toggleFeatured={this.toggleFeatured}
+                editGame={this.selectGameForEditing}
+                deleteGame={this.deleteGame}
+              />
+            )}
           </div>
         </div>
 

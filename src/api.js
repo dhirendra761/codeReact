@@ -9,5 +9,6 @@ export default {
       axios
         .put(`/api/unsafegames/${game._id}`, { game })
         .then((res) => res.data.game),
+    delete: (game) => axios.delete(`/api/unsafegames/${game._id}`),
   },
 };
