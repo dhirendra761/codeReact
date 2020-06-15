@@ -1,13 +1,14 @@
 import React from "react";
 import GameList from "./GameList";
 import _orderBy from "lodash/orderBy";
+import _find from "lodash/find";
 import GameFrom from "./GameFrom";
 import TopNavigation from "./TopNavigation";
 import api from "../api";
 
 const publishers = [
-  { _id: 1, name: "Days of Wonder" },
-  { _id: 2, name: "Rio Grande Games" },
+  { _id: "1", name: "Days of Wonder" },
+  { _id: "2", name: "Rio Grande Games" },
 ];
 
 class App extends React.Component {
@@ -42,36 +43,48 @@ class App extends React.Component {
   //2nd Version of Games
 
   toggleFeatured = (gameID) => {
-    this.setState({
-      games: this.sortGames(
-        this.state.games.map((game) =>
-          game._id === gameID ? { ...game, featured: !game.featured } : game
-        )
-      ),
+    const game = _find(this.state.games, { _id: gameID });
+    return this.updateGame({
+      ...game,
+      featured: !game.featured,
     });
   };
   showGameForm = () => this.setState({ showGameForm: true, selectedGame: {} });
   hideGameForm = () => this.setState({ showGameForm: false, selectedGame: {} });
   saveGame = (game) => (game._id ? this.updateGame(game) : this.addGame(game));
 
-  addGame = (game) =>
-    this.setState({
-      games: this.sortGames([
-        ...this.state.games,
-        {
-          ...game,
-          _id: this.state.games.length + 1,
-        },
-      ]),
-      showGameForm: false,
-    });
-  updateGame = (game) =>
-    this.setState({
-      games: this.sortGames(
-        this.state.games.map((item) => (item._id === game._id ? game : item))
-      ),
-      showGameForm: false,
-    });
+  // addGame = (game) =>
+  //   this.setState({
+  //     games: this.sortGames([
+  //       ...this.state.games,
+  //       {
+  //         ...game,
+  //         _id: this.state.games.length + 1,
+  //       },
+  //     ]),
+  //     showGameForm: false,
+  //   });
+
+  addGame = (gameData) =>
+    api.games.create(gameData).then((game) =>
+      this.setState({
+        games: this.sortGames([...this.state.games, game]),
+        showGameForm: false,
+      })
+    );
+  updateGame = (gameData) =>
+    api.games.update(gameData).then((game) =>
+      this.setState({
+        games: this.sortGames(
+          this.state.games.map((item) => (item._id === game._id ? game : item))
+        ),
+        // this.setState({
+        //   games: this.sortGames(
+        //     this.state.games.map((item) => (item._id === game._id ? game : item))
+        //   ),
+        showGameForm: false,
+      })
+    );
   deleteGame = (game) =>
     this.setState({
       games: this.state.games.filter((item) => item._id !== game._id),

@@ -13,7 +13,6 @@ import FormInlineMessage from "./FormInlineMessage";
 //   { _id: 3, name: "ameritrash" },
 // ];
 const initialData = {
-  _id: null,
   name: "",
   description: "",
   price: 0,
@@ -29,6 +28,7 @@ export default class GameFrom extends Component {
   state = {
     data: initialData,
     errors: {},
+    loading: false,
   };
   componentDidMount() {
     if (this.props.game._id) {
@@ -57,12 +57,27 @@ export default class GameFrom extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault();
+    // CLIENT SIDE VALIDATION
+    //  const errors = this.validate(this.state.data);
+    // const errors = {};
+    // this.setState({ errors });
 
-    const errors = this.validate(this.state.data);
+    // if (Object.keys(errors).length === 0) {
+    //   this.props.submit(this.state.data);
+    // }
+
+    // SERVERSIDE VALIDATION
+
+    const errors = {};
     this.setState({ errors });
-
     if (Object.keys(errors).length === 0) {
-      this.props.submit(this.state.data);
+      this.setState({ loading: true });
+
+      this.props
+        .submit(this.state.data)
+        .catch((err) =>
+          this.setState({ errors: err.response.data.errors, loading: false })
+        );
     }
   };
   handleStringChange = (e) =>
@@ -91,9 +106,10 @@ export default class GameFrom extends Component {
   //   console.log(this.state.genre === genre._id);
   // };
   render() {
-    const { data, errors } = this.state;
+    const { data, errors, loading } = this.state;
+    const formClassNames = loading ? "ui form loading" : "ui form";
     return (
-      <form className="ui form" onSubmit={this.handleSubmit}>
+      <form className={formClassNames} onSubmit={this.handleSubmit}>
         <div className="ui grid">
           <div className="twelve wide column">
             <div className={errors.name ? "field error" : "field"}>
@@ -128,19 +144,6 @@ export default class GameFrom extends Component {
               alt="Thumbnail"
               className="ui image"
             />
-            {/* {data.thumbnail ? (
-              <img
-                src={data.thumbnail}
-                alt="Thumbnail"
-                className="ui image"
-              />
-            ) : (
-              <img
-                src="http://via.placeholder.com/250x50"
-                alt="Thumbnail"
-                className="ui image"
-              />
-            )} */}
           </div>
         </div>
 
@@ -202,34 +205,7 @@ export default class GameFrom extends Component {
           />
           <label htmlFor="featured">Featured?</label>
         </div>
-        {/* <div className={errors.name ? "field error" : "field"}>
-          <label>Tags</label>
-          {tags.map((tag) => (
-            <div className="inline field" key={tag._id}>
-              <input
-                id={`tag-${tag._id}`}
-                type="checkbox"
-                checked={data.tags.includes(tag._id)}
-                onChange={() => this.toggleTag(tag)}
-              />
-              <label htmlFor={`tag-${tag._id}`}>{tag.name}</label>
-            </div>
-          ))}
-        </div>
-        <div className={errors.name ? "field error" : "field"}>
-          <label>Genres</label>
-          {genre.map((genre) => (
-            <div className="inline field" key={genre._id}>
-              <input
-                id={`genre-${genre._id}`}
-                type="radio"
-                checked={this.state.genre === genre._id}
-                onChange={() => this.handleGenreChange(genre)}
-              />
-              <label htmlFor={`genre-${genre._id}`}>{genre.name}</label>
-            </div>
-          ))}
-        </div> */}
+
         <div className={errors.publisher ? "field error" : "field"}>
           <label>Publishers</label>
           <select
@@ -263,19 +239,20 @@ export default class GameFrom extends Component {
 GameFrom.propTypes = {
   publishers: PropTypes.arrayOf(
     PropTypes.shape({
-      _id: PropTypes.number.isRquired,
+      _id: PropTypes.string.isRquired,
       name: PropTypes.string.isRequired,
     })
   ).isRequired,
   cancel: PropTypes.func.isRequired,
   submit: PropTypes.func.isRequired,
   game: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    thumbnail: PropTypes.string.isRequired,
-    players: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    duration: PropTypes.number.isRequired,
-    featured: PropTypes.bool.isRequired,
+    _id: PropTypes.string,
+    name: PropTypes.string,
+    thumbnail: PropTypes.string,
+    players: PropTypes.string,
+    price: PropTypes.number,
+    duration: PropTypes.number,
+    featured: PropTypes.bool,
   }).isRequired,
 };
 
