@@ -1,20 +1,19 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { NavLink } from "react-router-dom";
 
-export default function TopNavigation({ showGameForm }) {
+export default function TopNavigation() {
   return (
     <div className="ui secondary pointing menu">
-      <a href="/" className="item">
+      <NavLink exact to="/" className="item">
         BGShop
-      </a>
-      <a className="item" onClick={showGameForm}>
+      </NavLink>
+      <NavLink exact to="/games" className="item">
+        Games
+      </NavLink>
+      <NavLink exact to="/games/new" className="item">
         <i className="icon plus"></i>
         Add New Game
-      </a>
+      </NavLink>
     </div>
   );
 }
-
-TopNavigation.propTypes = {
-  showGameForm: PropTypes.func.isRequired,
-};
