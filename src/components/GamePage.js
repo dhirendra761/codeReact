@@ -3,8 +3,8 @@ import GameList from "./GameList";
 import _orderBy from "lodash/orderBy";
 import _find from "lodash/find";
 import GameFrom from "./GameFrom";
-import TopNavigation from "./TopNavigation";
 import api from "../api";
+import { Route } from "react-router-dom";
 
 const publishers = [
   { _id: "1", name: "Days of Wonder" },
@@ -14,7 +14,6 @@ const publishers = [
 class GamePage extends React.Component {
   state = {
     games: [],
-    showGameForm: false,
     selectedGame: {},
     loading: true,
   };
@@ -54,8 +53,7 @@ class GamePage extends React.Component {
       featured: !game.featured,
     });
   };
-  showGameForm = () => this.setState({ showGameForm: true, selectedGame: {} });
-  hideGameForm = () => this.setState({ showGameForm: false, selectedGame: {} });
+
   saveGame = (game) => (game._id ? this.updateGame(game) : this.addGame(game));
 
   // addGame = (game) =>
@@ -102,22 +100,23 @@ class GamePage extends React.Component {
   selectGameForEditing = (game) =>
     this.setState({ selectedGame: game, showGameForm: true });
   render() {
-    const numberOfColumns = this.state.showGameForm ? "ten" : "sixteen";
+    const numberOfColumns =
+      this.props.location.pathname === "/games" ? "sixteen" : "ten";
     return (
       <div className="ui container">
-        <TopNavigation showGameForm={this.showGameForm} />
-
         <div className="ui stackable grid">
-          {this.state.showGameForm && (
-            <div className="six wide column">
-              <GameFrom
-                submit={this.saveGame}
-                cancel={this.hideGameForm}
-                publishers={publishers}
-                game={this.state.selectedGame}
-              />
-            </div>
-          )}
+          <Route
+            path="/games/new"
+            render={() => (
+              <div className="six wide column">
+                <GameFrom
+                  submit={this.saveGame}
+                  publishers={publishers}
+                  game={{}}
+                />
+              </div>
+            )}
+          />
 
           <div className={`${numberOfColumns} wide column`}>
             {this.state.loading ? (

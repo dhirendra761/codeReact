@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import ReactImageFallback from "react-image-fallback";
 import FormInlineMessage from "./FormInlineMessage";
+import { Link } from "react-router-dom";
 // const tags = [
 //   { _id: 1, name: "dice" },
 //   { _id: 2, name: "economic" },
@@ -227,9 +228,9 @@ export default class GameFrom extends Component {
             Create
           </button>
           <div className="or"></div>
-          <a className="ui button" onClick={this.props.cancel}>
+          <Link to="/games" className="ui button">
             Cancel
-          </a>
+          </Link>
         </div>
       </form>
     );
@@ -243,7 +244,6 @@ GameFrom.propTypes = {
       name: PropTypes.string.isRequired,
     })
   ).isRequired,
-  cancel: PropTypes.func.isRequired,
   submit: PropTypes.func.isRequired,
   game: PropTypes.shape({
     _id: PropTypes.string,
