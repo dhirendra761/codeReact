@@ -4,7 +4,7 @@ import _orderBy from "lodash/orderBy";
 import _find from "lodash/find";
 import GameFrom from "./GameFrom";
 import api from "../api";
-import { Route } from "react-router-dom";
+import { Route, params } from "react-router-dom";
 
 const publishers = [
   { _id: "1", name: "Days of Wonder" },
@@ -14,7 +14,6 @@ const publishers = [
 class GamePage extends React.Component {
   state = {
     games: [],
-    selectedGame: {},
     loading: true,
   };
 
@@ -97,8 +96,7 @@ class GamePage extends React.Component {
         games: this.state.games.filter((item) => item._id !== game._id),
       })
     );
-  selectGameForEditing = (game) =>
-    this.setState({ selectedGame: game, showGameForm: true });
+
   render() {
     const numberOfColumns =
       this.props.location.pathname === "/games" ? "sixteen" : "ten";
@@ -117,6 +115,23 @@ class GamePage extends React.Component {
               </div>
             )}
           />
+          <Route
+            exact
+            path="/games/edit/:_id"
+            render={(props) => (
+              <div className="six wide column">
+                <GameFrom
+                  submit={this.saveGame}
+                  publishers={publishers}
+                  game={
+                    _find(this.state.games, {
+                      _id: props.match.params._id,
+                    }) || {}
+                  }
+                />
+              </div>
+            )}
+          />
 
           <div className={`${numberOfColumns} wide column`}>
             {this.state.loading ? (
@@ -131,7 +146,6 @@ class GamePage extends React.Component {
               <GameList
                 games={this.state.games}
                 toggleFeatured={this.toggleFeatured}
-                editGame={this.selectGameForEditing}
                 deleteGame={this.deleteGame}
               />
             )}
