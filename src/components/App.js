@@ -5,10 +5,22 @@ import HomePage from "./HomePage";
 import GamePage from "./GamePage";
 import ShowGamePage from "./ShowGamePage";
 export default class App extends Component {
+  state = {
+    user: {
+      token: "dummy",
+    },
+  };
+  logout = () => {
+    this.setState({ user: { taken: null } });
+  };
   render() {
     return (
       <div className="ui container">
-        <TopNavigation />
+        <TopNavigation
+          isAuthenticated={!!this.state.user.token}
+          logout={this.logout}
+        />
+        {console.log(!!this.state.user.token)}
         <Route path="/" exact component={HomePage} />
         <Route path="/games" component={GamePage} />
         <Route path="/game/:_id" exact component={ShowGamePage} />
