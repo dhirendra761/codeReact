@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import ReactImageFallback from "react-image-fallback";
 import FormInlineMessage from "./FormInlineMessage";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 // const tags = [
 //   { _id: 1, name: "dice" },
 //   { _id: 2, name: "economic" },
@@ -30,6 +30,7 @@ export default class GameFrom extends Component {
     data: initialData,
     errors: {},
     loading: false,
+    redirect: false,
   };
   componentDidMount() {
     if (this.props.game._id) {
@@ -76,6 +77,7 @@ export default class GameFrom extends Component {
 
       this.props
         .submit(this.state.data)
+        .then(() => this.setState({ redirect: true }))
         .catch((err) =>
           this.setState({ errors: err.response.data.errors, loading: false })
         );
@@ -111,6 +113,7 @@ export default class GameFrom extends Component {
     const formClassNames = loading ? "ui form loading" : "ui form";
     return (
       <form className={formClassNames} onSubmit={this.handleSubmit}>
+        {/* This is another way to route after create game* {this.state.redirect && <Redirect to="/games" />} */}
         <div className="ui grid">
           <div className="twelve wide column">
             <div className={errors.name ? "field error" : "field"}>
