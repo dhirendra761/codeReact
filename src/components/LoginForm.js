@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import isEmail from "validator/lib/isEmail";
 import FormInlineMessage from "./FormInlineMessage";
 
 export default class LoginForm extends Component {
@@ -35,7 +36,8 @@ export default class LoginForm extends Component {
   };
   validate = (data) => {
     const errors = {};
-
+    if (!isEmail(data.email))
+      errors.email = "You provided invalid email address";
     if (!data.email) errors.email = "This field can't be blank";
     if (!data.password) errors.password = "This field can't be blank";
 
