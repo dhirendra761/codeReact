@@ -3,11 +3,12 @@ import { Route } from "react-router-dom";
 import TopNavigation from "./TopNavigation";
 import HomePage from "./HomePage";
 import GamePage from "./GamePage";
+import SignupPage from "./SignupPage";
 import ShowGamePage from "./ShowGamePage";
 export default class App extends Component {
   state = {
     user: {
-      token: "dummy",
+      token: null,
     },
   };
   logout = () => {
@@ -23,6 +24,7 @@ export default class App extends Component {
         {console.log(!!this.state.user.token)}
         <Route path="/" exact component={HomePage} />
         <Route path="/games" component={GamePage} />
+        <Route path="/signup" component={SignupPage} />
         <Route path="/game/:_id" exact component={ShowGamePage} />
       </div>
     );

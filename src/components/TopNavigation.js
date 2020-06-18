@@ -26,7 +26,7 @@ export default function TopNavigation({ isAuthenticated, logout }) {
           <NavLink to="/signup" className="item">
             Signup
           </NavLink>
-          <NavLink to="/Login" className="item">
+          <NavLink to="/login" className="item">
             Login
           </NavLink>
         </div>
