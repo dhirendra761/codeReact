@@ -4,7 +4,7 @@ import _orderBy from "lodash/orderBy";
 import _find from "lodash/find";
 import GameFrom from "./GameFrom";
 import api from "../api";
-import { Route, params } from "react-router-dom";
+import { Route } from "react-router-dom";
 
 const publishers = [
   { _id: "1", name: "Days of Wonder" },

@@ -15,5 +15,7 @@ export default {
   },
   users: {
     create: (user) => axios.post(`/api/users`, { user }),
+    login: (credential) =>
+      axios.post("/api/auth", { credential }).then((res) => res.data.token),
   },
 };

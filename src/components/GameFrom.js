@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import ReactImageFallback from "react-image-fallback";
 import FormInlineMessage from "./FormInlineMessage";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 // const tags = [
 //   { _id: 1, name: "dice" },
 //   { _id: 2, name: "economic" },

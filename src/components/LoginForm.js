@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import isEmail from "validator/lib/isEmail";
 import FormInlineMessage from "./FormInlineMessage";
 
-export default class SignupForm extends Component {
+export default class LoginForm extends Component {
   state = {
     data: {
       email: "",
@@ -36,13 +35,10 @@ export default class SignupForm extends Component {
   };
   validate = (data) => {
     const errors = {};
-    if (!isEmail(data.email))
-      errors.email = "You provided invalid email address";
+
     if (!data.email) errors.email = "This field can't be blank";
     if (!data.password) errors.password = "This field can't be blank";
-    if (data.passwordConfirmation !== data.password) {
-      errors.password = "Password must match";
-    }
+
     return errors;
   };
   render() {
@@ -74,21 +70,6 @@ export default class SignupForm extends Component {
           />
           <FormInlineMessage content={errors.password} type="error" />
         </div>
-        <div className={errors.passwordConfirmation ? "field error" : "field"}>
-          <label htmlFor="passwordConfirmation">Confirm Password</label>
-          <input
-            type="password"
-            id="passwordConfirmation"
-            name="passwordConfirmation"
-            placeholder="Type it again, just to make sure"
-            value={data.passwordConfirmation}
-            onChange={this.handleStringChange}
-          />
-          <FormInlineMessage
-            content={errors.passwordConfirmation}
-            type="error"
-          />
-        </div>
         <div className="ui fluid buttons">
           <button className="ui primary button" type="submit">
             Sign Up
@@ -102,6 +83,6 @@ export default class SignupForm extends Component {
     );
   }
 }
-SignupForm.propTypes = {
+LoginForm.propTypes = {
   submit: PropTypes.func.isRequired,
 };
