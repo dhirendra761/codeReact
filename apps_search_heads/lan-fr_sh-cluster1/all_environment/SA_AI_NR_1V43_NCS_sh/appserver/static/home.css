@@ -1,0 +1,31 @@
+.main-section-body.dashboard-body
+	{
+		color: #3c444d;
+		background-color: #0d335f;
+	}
+	
+	/*titre en blanc et gras*/
+	.dashboard-header h2 
+	{	
+		font-weight: bold;
+		font-size: 37px;
+		color: #f2f4f5;
+		word-wrap: break-word;
+		text-transform: none;
+		text-rendering: auto !important;
+		line-height: initial;
+	}
+
+	div#dashboard1
+	{
+		color: #0d335f;
+		background-color: #0d335f;
+	}
+	
+	div#view_13089 
+	{
+		background-image: url(https://www.airbus.com/etc/designs/airbus/airbus-aem-newairbus/clientlib-base/images/airbus.svg);
+		background-size: 187px 62px;
+		background-repeat: no-repeat;
+		padding-top: 50px;
+	}

@@ -1,0 +1,137 @@
+<form stylesheet="field_manager2.css">
+  <label>NCS-US-5 - NCS - Field Managers</label>
+    <fieldset submitButton="false">
+    <input type="time" token="field1">
+      <label></label>
+      <default>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>FR - Field Managers status</title>
+      <table>
+        <title>Servlet availability</title>
+        <search>
+          <query>index=ai-platform-watchdogng-log sourcetype=watchdogng* 
+		  | search tags="url_infos_fr" 
+		  | convert ctime(_time) as Day timeformat="%d/%m/%y %H:%M:%S" 
+		  | fields + Day name result 
+		  | rename Day as Time, name as URL, result as Status
+		  | dedup URL
+		  | sort by _time desc
+		  | table Time URL Status
+		  </query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">15</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+        <format type="color" field="Result">
+          <colorPalette type="map">{"4":#DC4E41,"2*":#53A051}</colorPalette>
+        </format>
+        <format type="color" field="Status">
+          <colorPalette type="map">{"400 Bad Request":#DC4E41,"401 Unauthorized":#DC4E41,"402 Payment Required":#DC4E41,"403 Forbidden":#DC4E41,"404 Not Found":#DC4E41,"405 Method Not Allowed":#DC4E41,"406 Not Acceptable":#DC4E41,"408 Request Time-out":#DC4E41,"409 Conflict":#DC4E41,"410 Gone":#DC4E41,"411 Length Required":#DC4E41,"412 Precondition Failed":#DC4E41,"413 Request Entity Too Large":#DC4E41,"414 Request-URI Too Long":#DC4E41,"415 Unsupported Media Type":#DC4E41,"416 Requested range unsatisfiable":#DC4E41,"417 Expectation failed":#DC4E41,"418 I’m a teapot":#DC4E41,"200 OK":#53A051,"100 Continue":#708794,"101 Switching Protocols":#708794,"102 Processing":#708794,"103 Early Hints":#708794,"201 Created":#53A051,"202 Accepted":#53A051,"203 Non-Authoritative Information":#53A051,"204 No Content":#53A051,"205 Reset Content":#53A051,"206 Partial Content":#53A051,"207 Multi-Status":#53A051,"208 Already Reported":#53A051,"210 Content Different":#53A051,"226 IM Used":#53A051,"300 Multiple Choices":#F8BE34,"301 Moved Permanently":#F8BE34,"302 Found":#F8BE34,"303 See Other":#F8BE34,"304 Not Modified":#F8BE34,"305 Use Proxy":#F8BE34,"307 Temporary Redirect":#F8BE34,"308 Permanent Redirect":#F8BE34,"310 Too many Redirects":#F8BE34,"407 Proxy Authentication Required":#DC4E41,"421 Bad mapping / Misdirected Request":#DC4E41,"422 Unprocessable entity":#DC4E41,"423 Locked":#DC4E41,"424 Method failureMethod failure":#DC4E41,"425 Unordered Collection":#DC4E41,"426 Upgrade Required":#DC4E41,"428 Precondition Required":#DC4E41,"429 Too Many Requests":#DC4E41,"431 Request Header Fields Too Large":#DC4E41,"449 Retry With":#DC4E41,"450 Blocked by Windows Parental Controls":#DC4E41,"451 Unavailable For Legal Reasons":#DC4E41,"456 Unrecoverable Error":#DC4E41,"444 No Response":#DC4E41,"495 SSL Certificate Error":#DC4E41,"496 SSL Certificate Required":#DC4E41,"497 HTTP Request Sent to HTTPS Port":#DC4E41,"498 Token expired/invalid":#DC4E41,"499 Client Closed Request":#DC4E41,"500 Internal Server Error":#DC4E41,"501 Not Implemented":#DC4E41,"502 Bad Gateway ou Proxy Error":#DC4E41,"503 Service Unavailable":#DC4E41,"504 Gateway Time-out":#DC4E41,"505 HTTP Version not supported":#DC4E41,"506 Variant Also Negotiates":#DC4E41,"507 Insufficient storage":#DC4E41,"508 Loop detected":#DC4E41,"509 Bandwidth Limit Exceeded":#DC4E41,"510 Not extended":#DC4E41,"511 Network authentication required":#DC4E41,"520 Unknown Error":#DC4E41,"521 Web Server Is Down":#DC4E41,"522 Connection Timed Out":#DC4E41,"523 Origin Is Unreachable":#DC4E41,"524 A Timeout Occurred":#DC4E41,"525 SSL Handshake Failed":#DC4E41,"526 Invalid SSL Certificate":#DC4E41,"527 Railgun Error":#DC4E41}</colorPalette>
+        </format>
+      </table>
+    </panel>
+    <panel>
+      <title>FR - Connectivity of the Field Managers</title>
+      <table>
+        <title>Connectivity of the Field Managers from the last 2 hours</title>
+        <search>
+          <query>index=ai-platform-watchdogng-log sourcetype=watchdogng* 
+			 | search tags=NCSPing name=FR* 
+			 | convert ctime(_time) as Time timeformat="%d/%m/%y %H:%M:%S"  
+			 | table  Time, ipaddress, name, result  
+			 | rename ipaddress as "IP address", name as "Name", result as "Result" 
+			 | dedup  Name</query>
+          <earliest>-2h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">15</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+        <format type="color" field="Result">
+          <colorPalette type="map">{"OK":#53A051,"KO":#DC4E41}</colorPalette>
+        </format>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>GE - Field Managers status</title>
+      <table>
+        <title>Servlet availability</title>
+        <search>
+          <query>index=ai-platform-watchdogng-log sourcetype=watchdogng* 
+		    | search tags="url_infos_ge" 
+			| convert ctime(_time) as Day timeformat="%d/%m/%y %H:%M:%S" 
+			| fields + Day name result 
+			| rename Day as Time, name as URL, result as Status
+			| dedup URL
+			| sort by _time desc
+			| table Time URL Status
+		  </query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">15</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+        <format type="color" field="Result">
+          <colorPalette type="map">{"400 Bad Request":#DC4E41,"401 Unauthorized":#DC4E41,"402 Payment Required":#DC4E41,"403 Forbidden":#DC4E41,"404 Not Found":#DC4E41,"405 Method Not Allowed":#DC4E41,"406 Not Acceptable":#DC4E41,"408 Request Time-out":#DC4E41,"409 Conflict":#DC4E41,"410 Gone":#DC4E41,"411 Length Required":#DC4E41,"412 Precondition Failed":#DC4E41,"413 Request Entity Too Large":#DC4E41,"414 Request-URI Too Long":#DC4E41,"415 Unsupported Media Type":#DC4E41,"416 Requested range unsatisfiable":#DC4E41,"417 Expectation failed":#DC4E41,"418 I’m a teapot":#DC4E41,"200 OK":#53A051,"100 Continue":#708794,"101 Switching Protocols":#708794,"102 Processing":#708794,"103 Early Hints":#708794,"201 Created":#53A051,"202 Accepted":#53A051,"203 Non-Authoritative Information":#53A051,"204 No Content":#53A051,"205 Reset Content":#53A051,"206 Partial Content":#53A051,"207 Multi-Status":#53A051,"208 Already Reported":#53A051,"210 Content Different":#53A051,"226 IM Used":#53A051,"300 Multiple Choices":#F8BE34,"301 Moved Permanently":#F8BE34,"302 Found":#F8BE34,"303 See Other":#F8BE34,"304 Not Modified":#F8BE34,"305 Use Proxy":#F8BE34,"307 Temporary Redirect":#F8BE34,"308 Permanent Redirect":#F8BE34,"310 Too many Redirects":#F8BE34,"407 Proxy Authentication Required":#DC4E41,"421 Bad mapping / Misdirected Request":#DC4E41,"422 Unprocessable entity":#DC4E41,"423 Locked":#DC4E41,"424 Method failureMethod failure":#DC4E41,"425 Unordered Collection":#DC4E41,"426 Upgrade Required":#DC4E41,"428 Precondition Required":#DC4E41,"429 Too Many Requests":#DC4E41,"431 Request Header Fields Too Large":#DC4E41,"449 Retry With":#DC4E41,"450 Blocked by Windows Parental Controls":#DC4E41,"451 Unavailable For Legal Reasons":#DC4E41,"456 Unrecoverable Error":#DC4E41,"444 No Response":#DC4E41,"495 SSL Certificate Error":#DC4E41,"496 SSL Certificate Required":#DC4E41,"497 HTTP Request Sent to HTTPS Port":#DC4E41,"498 Token expired/invalid":#DC4E41,"499 Client Closed Request":#DC4E41,"500 Internal Server Error":#DC4E41,"501 Not Implemented":#DC4E41,"502 Bad Gateway ou Proxy Error":#DC4E41,"503 Service Unavailable":#DC4E41,"504 Gateway Time-out":#DC4E41,"505 HTTP Version not supported":#DC4E41,"506 Variant Also Negotiates":#DC4E41,"507 Insufficient storage":#DC4E41,"508 Loop detected":#DC4E41,"509 Bandwidth Limit Exceeded":#DC4E41,"510 Not extended":#DC4E41,"511 Network authentication required":#DC4E41,"520 Unknown Error":#DC4E41,"521 Web Server Is Down":#DC4E41,"522 Connection Timed Out":#DC4E41,"523 Origin Is Unreachable":#DC4E41,"524 A Timeout Occurred":#DC4E41,"525 SSL Handshake Failed":#DC4E41,"526 Invalid SSL Certificate":#DC4E41,"527 Railgun Error":#DC4E41}</colorPalette>
+        </format>
+        <format type="color" field="Status">
+          <colorPalette type="map">{"400 Bad Request":#DC4E41,"401 Unauthorized":#DC4E41,"402 Payment Required":#DC4E41,"403 Forbidden":#DC4E41,"404 Not Found":#DC4E41,"405 Method Not Allowed":#DC4E41,"406 Not Acceptable":#DC4E41,"408 Request Time-out":#DC4E41,"409 Conflict":#DC4E41,"410 Gone":#DC4E41,"411 Length Required":#DC4E41,"412 Precondition Failed":#DC4E41,"413 Request Entity Too Large":#DC4E41,"414 Request-URI Too Long":#DC4E41,"415 Unsupported Media Type":#DC4E41,"416 Requested range unsatisfiable":#DC4E41,"417 Expectation failed":#DC4E41,"418 I’m a teapot":#DC4E41,"200 OK":#53A051,"100 Continue":#708794,"101 Switching Protocols":#708794,"102 Processing":#708794,"103 Early Hints":#708794,"201 Created":#53A051,"202 Accepted":#53A051,"203 Non-Authoritative Information":#53A051,"204 No Content":#53A051,"205 Reset Content":#53A051,"206 Partial Content":#53A051,"207 Multi-Status":#53A051,"208 Already Reported":#53A051,"210 Content Different":#53A051,"226 IM Used":#53A051,"300 Multiple Choices":#F8BE34,"301 Moved Permanently":#F8BE34,"302 Found":#F8BE34,"303 See Other":#F8BE34,"304 Not Modified":#F8BE34,"305 Use Proxy":#F8BE34,"307 Temporary Redirect":#F8BE34,"308 Permanent Redirect":#F8BE34,"310 Too many Redirects":#F8BE34,"407 Proxy Authentication Required":#DC4E41,"421 Bad mapping / Misdirected Request":#DC4E41,"422 Unprocessable entity":#DC4E41,"423 Locked":#DC4E41,"424 Method failureMethod failure":#DC4E41,"425 Unordered Collection":#DC4E41,"426 Upgrade Required":#DC4E41,"428 Precondition Required":#DC4E41,"429 Too Many Requests":#DC4E41,"431 Request Header Fields Too Large":#DC4E41,"449 Retry With":#DC4E41,"450 Blocked by Windows Parental Controls":#DC4E41,"451 Unavailable For Legal Reasons":#DC4E41,"456 Unrecoverable Error":#DC4E41,"444 No Response":#DC4E41,"495 SSL Certificate Error":#DC4E41,"496 SSL Certificate Required":#DC4E41,"497 HTTP Request Sent to HTTPS Port":#DC4E41,"498 Token expired/invalid":#DC4E41,"499 Client Closed Request":#DC4E41,"500 Internal Server Error":#DC4E41,"501 Not Implemented":#DC4E41,"502 Bad Gateway ou Proxy Error":#DC4E41,"503 Service Unavailable":#DC4E41,"504 Gateway Time-out":#DC4E41,"505 HTTP Version not supported":#DC4E41,"506 Variant Also Negotiates":#DC4E41,"507 Insufficient storage":#DC4E41,"508 Loop detected":#DC4E41,"509 Bandwidth Limit Exceeded":#DC4E41,"510 Not extended":#DC4E41,"511 Network authentication required":#DC4E41,"520 Unknown Error":#DC4E41,"521 Web Server Is Down":#DC4E41,"522 Connection Timed Out":#DC4E41,"523 Origin Is Unreachable":#DC4E41,"524 A Timeout Occurred":#DC4E41,"525 SSL Handshake Failed":#DC4E41,"526 Invalid SSL Certificate":#DC4E41,"527 Railgun Error":#DC4E41}</colorPalette>
+        </format>
+      </table>
+    </panel>
+    <panel>
+      <title>GE - Connectivity of the Field Managers</title>
+      <table>
+        <title>Connectivity of the Field Managers from the last 2 hours</title>
+        <search>
+          <query>index=ai-platform-watchdogng-log sourcetype=watchdogng* 
+		  | search tags=NCSPing name=GE* 
+		  | convert ctime(_time) as Time timeformat="%d/%m/%y %H:%M:%S"  
+		  | table  Time, ipaddress, name, result  
+		  | rename ipaddress as "IP address", name as "Name", result as "Result" 
+		  | dedup  Name
+		  </query>
+          <earliest>-2h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">15</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+        <format type="color" field="Result">
+          <colorPalette type="map">{"OK":#53A051,"KO":#DC4E41}</colorPalette>
+        </format>
+      </table>
+    </panel>
+  </row>
+</form>

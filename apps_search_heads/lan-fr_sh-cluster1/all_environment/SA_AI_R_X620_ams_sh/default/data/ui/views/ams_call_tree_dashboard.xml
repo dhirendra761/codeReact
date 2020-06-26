@@ -1,0 +1,58 @@
+<form hideSplunkBar="true" hideFooter="true" hideEdit="true" stylesheet="ai-x620-ams.css">
+  <label>3.1 - AMS CALL TREE</label>
+  <fieldset submitButton="false">
+    <input type="dropdown" token="natco" searchWhenChanged="true">
+      <label>Select Natco</label>
+      <choice value="*">All</choice>
+      <choice value="natco=&quot;FR&quot;">FR</choice>
+      <choice value="natco=&quot;GE&quot;">GE</choice>
+      <choice value="natco=&quot;SP&quot;">SP</choice>
+      <choice value="natco=&quot;UK&quot;">UK</choice>
+      <default>*</default>
+      <initialValue>*</initialValue>
+    </input>
+    <input type="radio" token="state" searchWhenChanged="true">
+      <label>state</label>
+      <choice value="*">All</choice>
+      <choice value="State=&quot;Running&quot;">Running</choice>
+      <choice value="State=&quot;Stopped&quot;">Stopped</choice>
+      <default>*</default>
+      <initialValue>*</initialValue>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <table>
+        <search>
+          <query>eventtype=x620_ams_win_perform Type=Service 
+| eval natco="GE,FR,UK,SP" 
+| makemv delim="," natco 
+| mvexpand natco 
+| lookup service_list natco as natco OUTPUT service_list 
+| mvexpand service_list 
+| stats latest(_time) as _time by State DisplayName service_list natco 
+| where DisplayName==service_list |search $natco$
+| eval _time = strftime(_time,"%F %H:%M:%S") 
+| where DisplayName in ("Blacklight AMS UK DDCT","DHCP Client","Dialogic HMP License Manager","Dialogic Runtime Tracing Dispatcher","Dialogic System Service","RuntimeManager","Nuance Speech Server","NuanceLicensingService")
+| sort +natco State
+| table _time DisplayName natco State |search $state$
+| rename DisplayName as Services natco as Natcos _time as Time</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">100</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">true</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+        <format type="color" field="State">
+          <colorPalette type="map">{"Running":#4FA484,"Stopped":#DC4E41}</colorPalette>
+        </format>
+      </table>
+    </panel>
+  </row>
+</form>

@@ -1,0 +1,40 @@
+<form hideSplunkBar="true" hideFooter="true" hideEdit="true" stylesheet="ai-x620-ams.css">
+  <label>3.4 - AMS SERVICE DETAILS</label>
+  <fieldset submitButton="false">
+    <input type="dropdown" token="natco_service" searchWhenChanged="true">
+      <label>Select Server</label>
+      <choice value="natco=&quot;FR&quot; OR natco=&quot;SP&quot; OR natco=&quot;GE&quot; OR natco=&quot;UK&quot;">All</choice>
+      <choice value="natco=&quot;GE&quot;">GE</choice>
+      <choice value="natco=&quot;UK&quot;">UK</choice>
+      <choice value="natco=&quot;FR&quot;">FR</choice>
+      <choice value="natco=&quot;SP&quot;">SP</choice>
+      <search>
+        <query>|makeresults</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
+      <default>natco="FR" OR natco="SP" OR natco="GE" OR natco="UK"</default>
+      <initialValue>natco="FR" OR natco="SP" OR natco="GE" OR natco="UK"</initialValue>
+      <fieldForLabel>natco</fieldForLabel>
+      <fieldForValue>natco</fieldForValue>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <table>
+        <search>
+          <query>|`service_status` | search $natco_service$</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="count">20</option>
+        <option name="drilldown">row</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="wrap">false</option>
+        <format type="color" field="Status">
+          <colorPalette type="map">{"Stopped":#DC4E41,"Running":#53A051,"Paused":#F8BE34}</colorPalette>
+        </format>
+      </table>
+    </panel>
+  </row>
+</form>

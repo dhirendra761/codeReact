@@ -1,0 +1,241 @@
+<form hideSplunkBar="true" hideFooter="true" hideEdit="true" stylesheet="ai-x620-ams.css">
+  <label>1.2 - AMS FILE TRANSFERS MONITORING</label>
+  <fieldset submitButton="false">
+    <input type="time" token="time_token" searchWhenChanged="true">
+      <label>Select TIme Range</label>
+      <default>
+        <earliest>-30d@d</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row id="graph_panel">
+    <panel>
+      <title>File Transfers Status</title>
+      <viz type="SA_AI_R_X620_ams_sh.graphviz">
+        <search>
+          <query>| inputlookup ams_natco_lookup</query>
+          <earliest>-30d@d</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="SA_AI_R_X620_ams_sh.graphviz.displayGraph">false</option>
+        <option name="SA_AI_R_X620_ams_sh.graphviz.engine">circo</option>
+        <option name="SA_AI_R_X620_ams_sh.graphviz.fit">true</option>
+        <option name="SA_AI_R_X620_ams_sh.graphviz.scale">1</option>
+        <option name="SA_AI_R_X620_ams_sh.graphviz.totalMemory">8388608</option>
+        <option name="SA_AI_R_X620_ams_sh.graphviz.wait">true</option>
+        <option name="SA_AI_R_X620_ams_sh.graphviz.width">600</option>
+        <option name="SA_AI_R_X620_ams_sh.graphviz.xScrollbar">false</option>
+        <option name="SA_AI_R_X620_ams_sh.graphviz.yScrollbar">false</option>
+        <option name="SA_AI_R_X620_ams_sh.graphviz.zoom">false</option>
+        <option name="drilldown">none</option>
+        <option name="height">428</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+      </viz>
+    </panel>
+    <panel>
+      <title>Today's Files Details</title>
+      <input type="dropdown" token="todays_natco">
+        <label>Server</label>
+        <fieldForLabel>natco</fieldForLabel>
+        <fieldForValue>natco</fieldForValue>
+        <search>
+          <query>|makeresults</query>
+          <earliest>-1d@d</earliest>
+          <latest>@d</latest>
+        </search>
+        <choice value="*">All</choice>
+        <choice value="AMS FR">AMS FR</choice>
+        <choice value="AMS SP">AMS SP</choice>
+        <choice value="AMS GE">AMS GE</choice>
+        <choice value="AMS UK">AMS UK</choice>
+        <default>*</default>
+        <initialValue>*</initialValue>
+      </input>
+      <input type="dropdown" token="todays_status" searchWhenChanged="true">
+        <label>Status</label>
+        <fieldForLabel>status</fieldForLabel>
+        <fieldForValue>status</fieldForValue>
+        <search>
+          <query>|makeresults</query>
+          <earliest>-1d@d</earliest>
+          <latest>@d</latest>
+        </search>
+        <choice value="*">All</choice>
+        <choice value="OK">OK</choice>
+        <choice value="Error">Error</choice>
+        <default>*</default>
+        <initialValue>*</initialValue>
+      </input>
+      <table>
+        <search>
+          <query>|`x620_ams_get_status` |search natco="$todays_natco$"|search status="$todays_status$"| rename natco as Server status as Status File_Status as "Natco Status" source as "File Type" filePath as "File Location" diff as "Actual Diff"| table Day Server Status Message "File Type"</query>
+          <earliest>-1d@d</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="count">10</option>
+        <option name="drilldown">row</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="wrap">false</option>
+        <format type="color" field="status">
+          <colorPalette type="map">{"OK":#53A051,"KO":#DC4E41}</colorPalette>
+        </format>
+        <format type="color" field="Natco Status">
+          <colorPalette type="map">{"KO":#DC4E41,"OK":#4FA484}</colorPalette>
+        </format>
+        <format type="color" field="Status">
+          <colorPalette type="map">{"Error":#F1813F,"OK":#53A051}</colorPalette>
+        </format>
+        <format type="color" field="Server">
+          <colorPalette type="sharedList"></colorPalette>
+          <scale type="sharedCategory"></scale>
+        </format>
+        <format type="color" field="Message">
+          <colorPalette type="sharedList"></colorPalette>
+          <scale type="sharedCategory"></scale>
+        </format>
+        <format type="color" field="File Type">
+          <colorPalette type="sharedList"></colorPalette>
+          <scale type="sharedCategory"></scale>
+        </format>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>File Transfers Failed</title>
+      <chart>
+        <search>
+          <query>|`x620_ams_get_status`| stats count(status)  by natco status | rename natco as Server status as Status</query>
+          <earliest>$time_token.earliest$</earliest>
+          <latest>$time_token.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisTitleY.visibility">collapsed</option>
+        <option name="charting.axisTitleY2.visibility">collapsed</option>
+        <option name="charting.axisX.abbreviation">none</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.abbreviation">none</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.abbreviation">none</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">pie</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">all</option>
+        <option name="charting.fieldColors">{"Error": 0xDC4E41, "OK": 0x4FA484,"Warning": 0xEC9960}</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.mode">standard</option>
+        <option name="charting.legend.placement">none</option>
+        <option name="charting.lineWidth">2</option>
+        <option name="height">431</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">1</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+        <option name="trellis.splitBy">natco</option>
+        <drilldown>
+          <set token="aa">$click.name$</set>
+          <set token="form.natco_status">$click.value$</set>
+          <set token="cc">$click.name2$</set>
+          <set token="dd">$click.value2$</set>
+          <set token="ee">$trellis.name$</set>
+          <set token="natco_value">$trellis.value$</set>
+          <set token="form.natco_value">$trellis.value$</set>
+        </drilldown>
+      </chart>
+    </panel>
+    <panel depends="$natco_value$">
+      <title>Natco "$natco_value$" Details</title>
+      <input type="dropdown" token="natco_value" searchWhenChanged="true">
+        <label>Selected status:  $natco_value$</label>
+        <search>
+          <query>|makeresults</query>
+          <earliest>$time_token.earliest$</earliest>
+          <latest>$time_token.latest$</latest>
+        </search>
+        <choice value="AMS FR">AMS FR</choice>
+        <choice value="AMS SP">AMS SP</choice>
+        <choice value="AMS GE">AMS GE</choice>
+        <choice value="AMS UK">AMS UK</choice>
+      </input>
+      <input type="dropdown" searchWhenChanged="true" token="natco_status">
+        <label>Selected status:  $natco_status$</label>
+        <fieldForLabel>Status</fieldForLabel>
+        <fieldForValue>Status</fieldForValue>
+        <search>
+          <query>|makeresults</query>
+          <earliest>$time_token.earliest$</earliest>
+          <latest>$time_token.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <choice value="OK">OK</choice>
+        <choice value="Error">Error</choice>
+      </input>
+      <input type="time" token="time_token" searchWhenChanged="true">
+        <label>Select TIme Range</label>
+        <default>
+          <earliest>$time_token.earliest$</earliest>
+          <latest>$time_token.latest$</latest>
+        </default>
+      </input>
+      <table>
+        <search>
+          <query>|`x620_ams_get_status` |search natco="$natco_value$"| search status=$natco_status$ | rename natco as Server status as Status File_Status as "Natco Status" source as "File Type" filePath as "File Location" diff as "Actual Diff"| table Day Server Status Message "File Type" File</query>
+          <earliest>$time_token.earliest$</earliest>
+          <latest>$time_token.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">10</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">row</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">false</option>
+        <format type="color" field="Result">
+          <colorPalette type="map">{"OK":#B6C75A,"Not run":#EC9960,"Warning":#F8BE34}</colorPalette>
+        </format>
+        <format type="color" field="File">
+          <colorPalette type="list">[#EC9960,#006D9C,#F8BE34,#F1813F,#4FA484]</colorPalette>
+          <scale type="threshold">0,30,70,100</scale>
+        </format>
+        <format type="color" field="File_Status">
+          <colorPalette type="map">{"OK":#006D9C,"KO":#DC4E41}</colorPalette>
+        </format>
+        <format type="color" field="Status">
+          <colorPalette type="map">{"OK":#4FA484,"Error":#DC4E41,"Warning":#EC9960}</colorPalette>
+        </format>
+        <format type="color" field="Server">
+          <colorPalette type="sharedList"></colorPalette>
+          <scale type="sharedCategory"></scale>
+        </format>
+        <format type="color" field="Message">
+          <colorPalette type="sharedList"></colorPalette>
+          <scale type="sharedCategory"></scale>
+        </format>
+        <format type="color" field="File Type">
+          <colorPalette type="sharedList"></colorPalette>
+          <scale type="sharedCategory"></scale>
+        </format>
+      </table>
+    </panel>
+  </row>
+</form>

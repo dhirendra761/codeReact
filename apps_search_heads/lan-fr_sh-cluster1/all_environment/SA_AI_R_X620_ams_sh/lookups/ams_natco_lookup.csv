@@ -1,0 +1,16 @@
+AttrList,Origin,Destination,Type,Id,node
+"style=dashed,fillcolor=springgreen4,edgetooltip=""Export:\nNot OK"",color=springgreen4",AMS FR,FTS+,edge,,
+"style=dashed,fillcolor=springgreen4,edgetooltip=""Export:\nNot OK"",color=springgreen4",FTS+,AMS FR,edge,,
+"style=dashed,fillcolor=springgreen4,edgetooltip=""Export:\nNot OK"",color=springgreen4",AMS GE,FTS+,edge,,
+"style=dashed,fillcolor=red3,edgetooltip=""Export:\nNot OK"",color=red3",AMS UK,FTS+,edge,,
+"style=dashed,fillcolor=springgreen4,edgetooltip=""Export:\nNot OK"",color=springgreen4",AMS SP,FTS+,edge,,
+"style=dashed,fillcolor=springgreen4,edgetooltip=""Export:\nNot OK"",color=springgreen4",FTS+,AMS GE,edge,,
+"style=dashed,fillcolor=springgreen4,edgetooltip=""Export:\nNot OK"",color=springgreen4",FTS+,AMS UK,edge,,
+"style=dashed,fillcolor=springgreen4,edgetooltip=""Export:\nNot OK"",color=springgreen4",FTS+,AMS SP,edge,,
+"style=dashed,fillcolor=red3,edgetooltip=""Export:\nNot OK"",color=red3",OPAS,AMS UK,edge,,
+"shape=cylinder,style=""filled,rounded"",fontname=""fantasy:italic"",fillcolor=aquamarine,color=lightgreen,fontcolor=lightgreen",,,node,AMS GE,AMS GE
+"shape=cylinder,style=""filled,rounded"",fontname=""fantasy:italic"",tooltip=""Click for More Info"",fillcolor=white,color=royalblue2,fontcolor=royalblue2",,,node,AMS UK,AMS UK
+"shape=cylinder,style=""filled,rounded"",fontname=""fantasy:italic"",tooltip=""Click for More Info"",fillcolor=pink,color=brown2,fontcolor=brown2",,,node,AMS SP,AMS SP
+"shape=cylinder,style=""filled,rounded"",fontname=""fantasy:italic"",tooltip=""Click for More Info"",fillcolor=lightblue1,color=lightblue4,fontcolor=royalblue4",,,node,AMS FR,AMS FR
+"shape=cylinder,style=""filled,rounded"",fontname=""fantasy:italic"",tooltip=""Click for More Info"",fillcolor=lavenderblush2,color=darkorchid3,URL=file_transfers_failed,fontcolor=darkorchid3",,,node,FTS+,FTS+
+"shape=cylinder,style=""filled,rounded"",fontname=""fantasy:italic"",tooltip=""Click for More Info"",fillcolor=mistyrose1,color=plum4,fontcolor=plum4",,,node,OPAS,OPAS

@@ -1,0 +1,157 @@
+	/*ajout du logo airbus */
+	div#view_9627 
+	{
+		font-family: arial, sans serif;
+		background-image: url(https://www.airbus.com/etc/designs/airbus/airbus-aem-newairbus/clientlib-base/images/airbus.svg);
+		background-size: 187px 60px;
+		background-repeat: no-repeat;
+		padding-top: 50px;
+	}
+	
+	.main-section-body.dashboard-body
+	{
+		color: #3c444d;
+		background-color: #0d335f;
+	}
+	
+	/*titre en blanc et gras*/
+	.dashboard-header h2 
+	{
+		font-size: 37px;
+		color: #f2f4f5;
+		word-wrap: break-word;
+		text-transform: none;
+		text-rendering: auto !important;
+		line-height: initial;
+	}
+
+	div#dashboard1
+	{
+		color: #0d335f;
+		background-color: #0d335f;
+	}
+    
+    div#view_2595 {
+    margin-bottom: 0px;
+	}
+    
+	/*réduction bordure entre les tuiles et le titre*/
+	.fieldset 
+	{
+		margin-top: -30px;
+	}
+	
+    body 
+    {
+          margin: 0;
+          background: #f2f4f5;
+          color: #3c444d;
+          min-width: 960px;
+    	  font-family: Arial,sans-serif; /*arial en police par défaut*/
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 20px;
+          transition: margin .2s;
+    	  
+		}
+    
+    /* sous titre du dashboard */
+    p.description 
+    {
+    	font-style: normal;
+    	font-size: 20px;
+		color: #f4f4f4;
+	}
+    
+	div#input1 
+    {
+    	float: right;
+	}
+    
+    
+    /* police des tuiles */
+    svg.highcharts-root
+    {
+    	font-family: Arial, sans-serif !important;
+	}
+    
+    /* taille des sous titres avec APD et BDE */
+    h2.panel-title
+    {
+    	font-size: 24px !important;
+    	text-align: center;
+    	color:#0d335f;
+      	font-weight:bold !important;
+    }
+      
+    
+    /* panel 1 */
+    div#panel1 
+    {
+		font-family: Arial, sans-serif !important;
+        background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Flag_of_Germany.svg/800px-Flag_of_Germany.svg.png);
+        background-size: 64px 45px;
+        BACKFACE-VISIBILITY: INHERIT;
+        padding-top: 47px;
+    	background-repeat: no-repeat;
+		border-radius: 18px; 
+    	
+    }
+    
+    /* panel 2 */
+    div#panel2 
+    {
+    	font-family: Arial, sans-serif !important;
+        background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Flag_of_Germany.svg/800px-Flag_of_Germany.svg.png);
+        background-size: 64px 45px;
+        BACKFACE-VISIBILITY: INHERIT;
+        padding-top: 47px;
+    	background-repeat: no-repeat;
+    	border-radius: 18px;
+	
+    }
+    
+    
+    /* panel 3 */
+    div#panel3 
+    {
+    	font-family: Arial, sans-serif !important;
+   		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAT4AAACfCAMAAABX0UX9AAAAflBMVEXPFCv///8AJH3NABPtvcAAAHAAIXzPDijRKjulqsUADHfNABzOACPMAAD22dsACHbZWWThhIwAH3388fKepsTZV2MAGHsAHHzMAA0AEXnMAAgAAHYABHUAAGj19/rQIzXvxcjc3+mbosKOl7v56OredH3009bkkJfbY23VQlBYZn0jAAAHO0lEQVR4nO2d63baOhCFVdKSQkouhITA4aQpvb//C9aEmy1L1oxm68Jas390pasEjT9LM9uSK5k/tx9Cet3ON+NROk0n57Y+X5sBXX8+f3IyTRjSeDPfvp6aevztiurL7OlX88d9GOCHySghwOrwjTejVkiPDy83Lng7bqcfCgKsDJ8N78oFb71n1iIZBLi8SwOwKnzjuyWx553wkQHOkwCsCN/4bt6BNxuEd8L3nghLDeFq8NnDdh2A18J3Hs8BgGM4wErwNRcWznnWKB38x0wAq8AXA8/CRwb4DM2BFeAb3z0Tcl4/vZE+5ACI7IHF8dk9L1QwBvAVyIGF8dnwhq2Khe+G8eGuFiiARfE1F7FowxsyyQ58nK5qC2SkC+KjmWR/OjOcRNnXAmGki+FrTHKn5/E7ktn/ortMZzLShfDRJwYC+Og+xyVxDiyCT5bzLHy0RxSfhM/CBfDZz7axo8+cf5QVEUEPzI5vvFlGmWQHvlWnC8eM/8PVxA/hzPjiTbKtxcrY1ScuB+wBRg7hrPiaIMUF4wCvSVmmX74FXxjXAzPiwxSMI7zRyOzvyFLof07XFDOZkA2fPTHgLpYkv3t4YDDHL54SAJK+mN8DM+Gze54g502PncSc78wy3K2Ji0rMHpgFH8IkH+C1HlVNq4FSOTADPnTOc+DrAxQYac5kQnJ8tkmWVdv2Nxu7oWdUfqADTIwPVxgXvcJo+o095x7CSfHZwzZ+RPXhOfD1h3ByI50QH9Yk97/fgS97EUmGj1QwBPA8+DIb6UT4YlfPHPC8edyDb9f4ipAzaEY6ADAJPqBJXvnj9+LLmAMT4Eud8wj4sDlwIAg4vqaxJCaZiQ+xmHK6Wr8PBOPjvWImgRfERzXSolU5KD7cDXf5PDa+fhXmroW2AnIPYSA+e9gKTDLpqYmAD1lEnABh+Eg5DzRsGfiQkwmOwED4SDcZvPhPxJf0wRuCL4dJFuCjTiZE5EAAPnvYpi0YUfigRro9PMT4cplkIb5ERlqIL59JFuNL4qtE+OyUIng2j3jVhI2vP5kgNtICfMCbOTAxAMWHXJV7H8LR+Oxhi1k9S44PnAM3cfg2BXOeEB/USP/X+iI6vs6viWyU4PW6aHzIVblvMfhav5TP5wHxIVflIvC12sWunmXDhzTSsfhymmQ4PmQRicGXY1ZlEN8nuf7/9L31//4fZk79fcPj+/HT3RahYLx+b8KWywQbyquI3FdSik8kxSeS4hNJ8Ymk+ERSfCIpPpEUn0iKTyTzsSq9fR3G9/WtdIRdmau6NEiv4Vc6PkvD0apUKpVKpVKpVCqVSqVSqVQqlUqlUqlUKpVKpVKpVKpLV+l3lCxd2htWpd+Q6+ri3u8r/X6mpUt7u7R0AJYUn0iKTyTFJ5LiE0nxiaT4RFJ8Iik+kS4NH2A7ic5OGj7dPrl3vfj5o/MxCL63v+62Hh5PH0HtpIHdx8UL7372pU/j5qp1QUB83vZe2u1B9nEpCO+lBw84eG/v18EbVngXoe4eVkx4awc8aO4j9cBye1iJ4LXzkHgHNUnbhXZQIw7bJ0IPAOzfxwS4Rg1hyO6R/uAJ+Qe0eyQTIKiIAPYuFQUO3LuUGUf3Jubbu7S7cy4z6JnjrsN2zvXG4k4h3Vjy7JwrCnjtTNrSfZtbv+6Nh34zU+KD5rwku4YzAQpzoGDPekmgKfes98eFN9LRJyYw4c08PQ+Czz5WzBsbJaWwcmDkeR3MADvwegffJTivwxsf5ebiz+sQFYzQ8MCdFhMPMDIHRpxVxAzMVzDg+OhFBJcD2SdlMeGtg/CwJ2V1jtD2xkp5lMSclAUsGAXOaWMCZBtp1imBTHhdq1LolEBmzEwjzTij0h8IyyQnx0e2MZQiEhjC5BNSJUEUOCF1AzPSgwCJ5/My4VkmOXBCdIbzeb3xC4006XRoSeO1nA7tvQaRkSacTc5s+IrV8xLi2/XA1EbagS9bzkuOD5kDt06APXy41TNSz0uMj2ykI1flLHxAk0x/8E6KD+oDewBNt6EMJjk7PuFkwuCqnOk0AjPJxGGbCV86I33Ch1s9m4xY8LLgE+ZAr5E2R3jTXCa5ED6hke5e43Q6buHLapKL4UMa6e2hB5qCOS87ProPpBppk90kF8UHNdJNDzSoiYFJXM/Ljg9qpFeEd5tJq2fLaHjZ8QGN9GsQH2X1bCJ7SzM7PuFkQqtYBvAlLBhF8aF84CC+JCa5EnzCVbkDwAF8qd5KqgUfeQgP5H4vPspaKGtioEJ88iLiwZcl5x1VEJ/QSN848dFMMgheYXz0IuLqUA58iU1yX4XxiYoI6UOhV8xkKo5vBzByMiH4AdMzyciet1MF+KJzYHF4leCLzIFBeGuwSe6rEnxROTAAbwZ8tvWpGnwRz8KD8FKY5L4qwsdeldv/JWySkwzbvarCx5xMyDYx4Fdl+FgAfzl9nrn+3ZoU3M4TwqsQ33sO3BL2Z/jzD785gfb0dZD6AAAAAElFTkSuQmCC);
+        background-size: 64px 45px;
+        BACKFACE-VISIBILITY: INHERIT;
+        padding-top: 47px;
+    	background-repeat: no-repeat;
+    	margin-top: 14px;
+    	border-radius: 18px;
+	}
+    
+    /* panel 4 */
+    div#panel4 
+    {
+      font-family: Arial, sans-serif !important;
+      background-image: url(https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1280px-Flag_of_the_United_Kingdom.svg.png);
+      background-size: 64px 45px;
+      BACKFACE-VISIBILITY: INHERIT;
+      padding-top: 47px;
+      background-repeat: no-repeat;
+      margin-top: 14px;
+      border-radius: 18px;
+	}
+    /* modif taille de la police sous le nombre d'événement  */
+     h3 
+    	{
+    		font-style:normal ;
+       		text-align: center;
+    		font-size: 20px !important;
+   			margin-bottom: 10px !important;
+            font-weight:normal !important;
+   		}
+    
+    text.under-label
+    {
+      font-size: 22px !important;
+      text-align: center !important;
+      color:#0d335f;
+      font-style: bold ;
+	}
+    

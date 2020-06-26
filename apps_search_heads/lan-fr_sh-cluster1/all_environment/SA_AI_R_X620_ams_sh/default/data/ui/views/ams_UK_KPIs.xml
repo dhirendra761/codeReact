@@ -1,0 +1,125 @@
+<form hideSplunkBar="true" hideEdit="true" refresh="300" stylesheet="ai-x620-ams.css">
+  <label>2.5 - AMS UK KPIs</label>
+  <search id="base_search">
+    <query>|`ams_get_number_of_esclation($SortBY$)`</query>
+    <earliest>$earliest$</earliest>
+    <latest>$latest$</latest>
+  </search>
+  <fieldset submitButton="false">
+    <input type="dropdown" token="Period" searchWhenChanged="true">
+      <label>Select Time Period:</label>
+      <choice value="Last_7_days">Last 7 days</choice>
+      <choice value="Last_month">Previous month</choice>
+      <choice value="Last_6_months">Last 6 months</choice>
+      <choice value="Last_year">Previous year</choice>
+      <choice value="Last_2_years">Last 2 years</choice>
+      <choice value="Last_3_years">Last 3 years</choice>
+       <choice value="Last_5_years">Last 5 years</choice>
+      <change>
+        <condition value="Last_7_days">
+          <set token="earliest">-7d@h</set>
+          <set token="latest">now</set>
+        </condition>
+        <condition value="Last_month">
+          <set token="earliest">-1mon@mon</set>
+          <set token="latest">now</set>
+        </condition>
+        <condition value="Last_6_months">
+          <set token="earliest">-6mon@mon</set>
+          <set token="latest">now</set>
+        </condition>
+        <condition value="Last_year">
+          <set token="earliest">-1y@y</set>
+          <set token="latest">now</set>
+        </condition>
+        <condition value="Last_2_years">
+          <set token="earliest">-2y@y</set>
+          <set token="latest">now</set>
+        </condition>
+        <condition value="Last_3_years">
+          <set token="earliest">-3y@y</set>
+          <set token="latest">now</set>
+        </condition>
+        <condition value="Last_5_years">
+          <set token="earliest">-5y@y</set>
+          <set token="latest">now</set>
+        </condition>
+      </change>
+      <default>Last_7_days</default>
+      <initialValue>Last_7_days</initialValue>
+    </input>
+    <input type="dropdown" token="SortBY">
+      <label>Filtered par</label>
+      <choice value="1y">year</choice>
+      <choice value="1mon">month</choice>
+      <choice value="1d">day</choice>
+      <default>1y</default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>Escalation process consistency for UK - [AMS-US-54] - Number of Escalation process consistency on each Stage</title>
+      <chart>
+        <search base="base_search">
+          <query/>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">-45</option>
+        <option name="charting.axisTitleX.text">Time</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.placement">bottom</option>
+        <option name="height">266</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+      <table>
+        <search base="base_search">
+          <query/>
+        </search>
+        <option name="count">5</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Advice Note consistency consistency for UK - [AMS-US-56] - Number of OPAS Restrictions</title>
+      <chart>
+        <search>
+          <query>|`ams_get_number_of_OPASRestriction` | timechart count(OPASRestrictionID) as "Number of OPASRestrictionID " span=$SortBY$</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.placement">bottom</option>
+        <option name="height">266</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+      <table>
+        <search>
+          <query>|`ams_get_number_of_OPASRestriction` | eval Created=strftime(strptime(Created, "%Y-%m-%d %H:%M:%S"), "%d/%m/%Y ") | table OPASRestrictionID Created | sort Created | rename Created as "Importation Date"</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="count">5</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
+</form>

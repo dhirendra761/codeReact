@@ -1,0 +1,124 @@
+<form stylesheet="sap17.css">
+  <label>NCS-US-6 - NCS - Device Loads</label>
+  <fieldset submitButton="false">
+    <input type="time" token="field1">
+      <label></label>
+      <default>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>Number of transactions per Natcos and Site</title>
+      <chart>
+        <search>
+          <query>index=ai-platform-watchdogng-log sourcetype=watchdogng* | search tags= NCS_Device_loads | dedup id_transaction | chart count over country by site limit=0| addtotals fieldname=total  |sort - total | fields - total| foreach country [eval country = case(country=="F","FRANCE",country=="G","GERMANY",country=="U","UNITED KINGDOM")]</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.text">Natcos</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.text">Number of badging</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.abbreviation">none</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.abbreviation">none</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.abbreviation">none</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">stacked</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">all</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisEnd</option>
+        <option name="charting.legend.mode">standard</option>
+        <option name="charting.legend.placement">bottom</option>
+        <option name="charting.lineWidth">2</option>
+        <option name="height">447</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+        <option name="trellis.splitBy">country</option>
+        <drilldown>
+          <set token="tokLegend">$click.name2$</set>
+        </drilldown>
+      </chart>
+    </panel>
+  </row>
+  <row depends="$tokLegend$">
+    <panel>
+      <title>Transactions details for site : $tokLegend$</title>
+      <viz type="SA_AI_NR_1V43_NCS_sh.halo">
+        <search>
+          <query>index=ai-platform-watchdogng-log sourcetype=watchdogng* | search tags= NCS_Device_loads site=$tokLegend$ | dedup id_transaction | stats count AS data by building name| sort - data | join building [search index=ai-platform-watchdogng-log sourcetype=watchdogng* tags= NCS_Device_loads site=$tokLegend$ | dedup id_transaction | stats count AS Badging by building | sort - Badging |streamstats count as Rank]
+| eval color=Rank
+| eval outer=name
+| eval inner=building
+| eval count=data
+| eval ribbon=building | foreach inner [eval ribbon_color = case(color=="20","#00EF07",
+color=="19","#13F000",
+color=="18","#2DF100",
+color=="17","#48F200",
+color=="16","#62F301",
+color=="15","#7DF301",
+color=="14","#98F401",
+color=="13","#B3F501",
+color=="12","#CEF602",
+color=="11","#E9F702",
+color=="10","#F7EB02",
+color=="9","#F8D102",
+color=="8","#F9B703",
+color=="7","#FA9D03",
+color=="6","#FB8303",
+color=="5","#FB6903",
+color=="4","#FC4E04",
+color=="3","#FD3404",
+color=="2","#FE1904",
+color=="1","#FF050B")]
+| table outer* ribbon* inner* count color | sort - count</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="height">676</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+        <option name="SA_AI_NR_1V43_NCS_sh.halo.auto_transition">never</option>
+        <option name="SA_AI_NR_1V43_NCS_sh.halo.draggable">true</option>
+        <option name="SA_AI_NR_1V43_NCS_sh.halo.group_inner_limit">300</option>
+        <option name="SA_AI_NR_1V43_NCS_sh.halo.group_others_inner_color">#808080</option>
+        <option name="SA_AI_NR_1V43_NCS_sh.halo.group_outer_limit">300</option>
+        <option name="SA_AI_NR_1V43_NCS_sh.halo.group_use_others_inner">true</option>
+        <option name="SA_AI_NR_1V43_NCS_sh.halo.group_use_others_outer">true</option>
+        <option name="SA_AI_NR_1V43_NCS_sh.halo.label_dot_color">#000000</option>
+        <option name="SA_AI_NR_1V43_NCS_sh.halo.label_font_size">13</option>
+        <option name="SA_AI_NR_1V43_NCS_sh.halo.label_line_color">#000000</option>
+        <option name="SA_AI_NR_1V43_NCS_sh.halo.label_text_color">#000000</option>
+        <option name="SA_AI_NR_1V43_NCS_sh.halo.outer_colors">schemeSet1</option>
+        <option name="SA_AI_NR_1V43_NCS_sh.halo.outer_thickness">30</option>
+        <option name="SA_AI_NR_1V43_NCS_sh.halo.unit_suffix">Clockings</option>
+        <option name="SA_AI_NR_1V43_NCS_sh.halo.warning_override">true</option>
+        <option name="SA_AI_NR_1V43_NCS_sh.halo.width">900px</option>
+      </viz>
+    </panel>
+  </row>
+</form>

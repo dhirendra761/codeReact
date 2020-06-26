@@ -1,0 +1,53 @@
+.dashboard-body {
+  background: silver !important;
+}
+
+.dashboard-title {
+  color: #00205b !important;
+  text-align: center !important;
+}
+
+.dashboard-panel {
+  background: silver !important;
+}
+
+.dashboard-panel h2 {
+  background: #00205b !important;
+  color: white !important;
+  text-align: center !important;
+  font-weight: bold !important;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+}
+
+.fieldset {
+  color: #00205b !important;
+  text-align: left !important;
+}
+
+.dashboard-element-title {
+  color: white;
+  font-family: sans-serif;
+}
+
+.panel-head {
+  font-family: sans-serif;
+  background-color: #00205b;
+  /*border: medium solid #6495ed;*/
+  border-collapse: collapse;
+  text-align: center;
+  width: 100%;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+}
+
+.header {
+  background-color: #00205b;
+}
+
+div[data-view="views/shared/appbar/Master"] {
+        background-color: #00205B;
+     }
+div[data-role="underline"] {
+    background-color:#05CC05;
+}

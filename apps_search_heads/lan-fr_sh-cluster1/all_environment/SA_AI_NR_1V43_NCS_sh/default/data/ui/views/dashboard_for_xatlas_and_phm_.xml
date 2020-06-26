@@ -1,0 +1,204 @@
+<form stylesheet="sap17.css">
+  <label>NCS-US-02/03 - NCS -  SAP PHM / Xatlas -  Data flows status</label>
+  <fieldset submitButton="false" autoRun="true">
+    <input type="time" token="field1">
+      <label></label>
+      <default>
+        <earliest>-30d@d</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <html>
+       <htest>Import from SAP PHM</htest>
+      </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Last employee import from SAP PHM</title>
+      <single>
+        <title>Date of the last  import</title>
+        <search>
+          <query>index=ai-platform-watchdogng-log sourcetype=watchdogng* | search tags= NCS_Import_Person_Failed_number | stats  latest(_time) AS latest_time| convert ctime(latest_time) timeformat="%d/%m/%y %H:%M:%S"</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+          <refresh>10m</refresh>
+          <refreshType>delay</refreshType>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Age of last employee import</title>
+      <single>
+        <title>Last employee import from SAP PHM was</title>
+        <search>
+          <query>index=ai-platform-watchdogng-log sourcetype=watchdogng* | search tags= NCS_Import_Person_Failed_number
+| eval diff = tostring((now() - _time), "duration") 
+| eval diff_format1=replace(diff,"\+"," days ")
+| eval diff_format=replace(diff_format1,"^([^:]*)(:)([^:]*)(:)", "\1h\3m")."s"
+| head 1
+| table diff_format</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+          <refresh>10m</refresh>
+          <refreshType>delay</refreshType>
+        </search>
+        <option name="colorMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0x53a051","0xdc4e41"]</option>
+        <option name="rangeValues">[23]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="unit">ago</option>
+        <option name="useColors">1</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>SAP Import 1</title>
+      <table>
+        <title>Morning employee import history (4:00 AM - 9:00 AM)</title>
+        <search ref="SAP import 1 (final)">
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="count">10</option>
+        <option name="drilldown">cell</option>
+        <drilldown>
+          <link target="_blank">/app/monitoring_ncs/minimaster_idoc_quality</link>
+        </drilldown>
+      </table>
+    </panel>
+    <panel>
+      <title>SAP Import 2</title>
+      <table>
+        <title>Mid day employee import history (9:00 AM - 2:00 PM)</title>
+        <search ref="SAP import 2 (final)">
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="count">10</option>
+        <option name="drilldown">cell</option>
+        <drilldown>
+          <link target="_blank">/app/monitoring_ncs/minimaster_idoc_quality</link>
+        </drilldown>
+      </table>
+    </panel>
+    <panel>
+      <title>SAP Import 3</title>
+      <table>
+        <title>Afternoon employee import history (2:00 PM - 7:00 PM)</title>
+        <search ref="SAP Import 3">
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="count">10</option>
+        <option name="drilldown">cell</option>
+        <drilldown>
+          <link target="_blank">/app/monitoring_ncs/minimaster_idoc_quality</link>
+        </drilldown>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+       <htest>Xatlas Export to SAP PHM</htest>
+      </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>NCS - Xatlas export to SAP PHM - Issues count</title>
+      <single>
+        <title>Clocking events older than 10 minutes and not exported from Xatlas to PHM</title>
+        <search>
+          <query>index=ai-platform-watchdogng-log sourcetype=watchdogng*| search tags=NCS_XAtlas_PHM_Imports 
+| head 1
+| fields + not_exported_event</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+          <refresh>10m</refresh>
+          <refreshType>delay</refreshType>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">none</option>
+        <option name="height">160</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x53a051","0xdc4e41"]</option>
+        <option name="rangeValues">[0.5]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">0</option>
+        <option name="showTrendIndicator">0</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-1h</option>
+        <option name="underLabel">clocking(s) event not exported to SAP PHM</option>
+        <option name="unitPosition">after</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+      </single>
+    </panel>
+    <panel>
+      <title>NCS - Xatlas export to SAP PHM - History</title>
+      <chart>
+        <title>Evolution of non exported Xatlas events</title>
+        <search>
+          <query>index=ai-platform-watchdogng-log sourcetype=watchdogng* | search tags= "NCS_XAtlas_PHM_Imports"
+|  timechart values(not_exported_event) span=10m as "number of non exported events"</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">-45</option>
+        <option name="charting.axisTitleX.text">Date</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.text">Number of not exported events</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.abbreviation">none</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.abbreviation">none</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.abbreviation">none</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">area</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">connect</option>
+        <option name="charting.chart.showDataLabels">minmax</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">stacked</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisEnd</option>
+        <option name="charting.legend.mode">standard</option>
+        <option name="charting.legend.placement">none</option>
+        <option name="charting.lineWidth">2</option>
+        <option name="charting.seriesColors">[0xf8be34]</option>
+        <option name="height">291</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+      </chart>
+    </panel>
+  </row>
+</form>

@@ -1,0 +1,27 @@
+<nav>
+    <collection label="1- INFRASTRUCTURE">
+		<view name="ams_monitoring_infrastructure" default="true" />
+		<view name="ams_monitoring_transport" />
+  </collection>
+  <collection label="2- KPIs">
+	 	<view name="ams_call_tree" />
+		<view name="global_kpis" />
+		<view name="global_kpis_by_employee" />
+		<view name="ams_ge_calltree_reports" />
+		<view name="ams_UK_KPIs" />
+		<view name="kpis_employees_accounts" />
+		<view name="rtw_kpis" />
+		<view name="notifications_kpis" />
+		<view name="delegations_kpis" />
+  </collection>
+  <collection label="3- PERFORMANCE">
+    <view name="ams_call_tree_dashboard" />
+    <view name="ams_disk__cpu_dashboard" />
+    <view name="ams_server_dashboard" />
+    <view name="ams_service_dashboard" />
+    <view name="website_monitoring_dashboard" />
+    <view name="ams_disk_status" />
+    <view name="ams_ram_status" />
+   </collection> 
+  <view name="dashboards" />
+</nav>

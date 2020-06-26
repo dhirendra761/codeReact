@@ -1,0 +1,55 @@
+<form hideSplunkBar="true" hideFooter="true" hideEdit="true" stylesheet="ai-x620-ams.css">
+  <label>3.5 - WEBSITE MONITORING</label>
+  <fieldset submitButton="false">
+    <input type="dropdown" token="natco">
+      <label>Select NATCO</label>
+      <choice value="Server=&quot;FR&quot; OR Server=&quot;GE&quot; OR Server=&quot;UK&quot; OR Server=&quot;SP&quot;">All</choice>
+      <choice value="Server=&quot;FR&quot;">FR</choice>
+      <choice value="Server=&quot;GE&quot;">GE</choice>
+      <choice value="Server=&quot;UK&quot;">UK</choice>
+      <choice value="Server=&quot;SP&quot;">SP</choice>
+      <default>Server="FR"</default>
+      <initialValue>Server="FR"</initialValue>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <table>
+        <search>
+          <query>|`website_status`| search $natco$</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">100</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+        <format type="color" field="'Status'">
+          <colorPalette type="map">{"200":#4FA484,"Connection failed":#DC4E41}</colorPalette>
+        </format>
+        <format type="color" field="Status">
+          <colorPalette type="sharedList"></colorPalette>
+          <scale type="sharedCategory"></scale>
+        </format>
+        <format type="number" field="Link"></format>
+        <format type="color" field="Link">
+          <colorPalette type="sharedList"></colorPalette>
+          <scale type="sharedCategory"></scale>
+        </format>
+        <format type="color" field="Server">
+          <colorPalette type="sharedList"></colorPalette>
+          <scale type="sharedCategory"></scale>
+        </format>
+        <format type="color" field="Title">
+          <colorPalette type="sharedList"></colorPalette>
+          <scale type="sharedCategory"></scale>
+        </format>
+      </table>
+    </panel>
+  </row>
+</form>

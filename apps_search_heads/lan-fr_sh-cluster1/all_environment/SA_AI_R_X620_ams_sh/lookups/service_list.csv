@@ -1,0 +1,48 @@
+natco,service_list
+FR,Blacklight AMS Call Tree France
+FR,BLS Run Executable
+FR,NWTaskManagerFR
+FR,World Wide Web Publishing Service
+FR,Dialogic HMP License Manager
+FR,Dialogic Runtime Tracing Dispatcher
+FR,Dialogic System Service
+FR,DHCP Client
+FR,DM3Config
+FR,NLogServer
+FR,Nuance Speech Server
+FR,NuanceLicensingService
+FR,RuntimeManager
+FR,SQL Server Reporting Services (MSSQLSERVER)
+UK,Blacklight AMS UK DDCT
+UK,NWTaskManagerUK
+UK,World Wide Web Publishing Service
+UK,Dialogic HMP License Manager
+UK,Dialogic Runtime Tracing Dispatcher
+UK,Dialogic System Service
+UK,RuntimeManager
+UK,DHCP Client
+UK,DM3Config
+UK,NLogServer
+UK,SQL Server Reporting Services (MSSQLSERVER)
+SP,Blacklight AMS Call Tree Spain
+SP,NWTaskManagerES
+SP,World Wide Web Publishing Service
+SP,Dialogic HMP License Manager
+SP,Dialogic Runtime Tracing Dispatcher
+SP,Dialogic System Service
+SP,DHCP Client
+SP,DM3Config
+SP,NLogServer
+SP,RuntimeManager
+SP,SQL Server Reporting Services (MSSQLSERVER)
+GE,Blacklight AMS Call Tree Germany
+GE,NWTaskManagerGE
+GE,World Wide Web Publishing Service
+GE,Dialogic HMP License Manager
+GE,Dialogic Runtime Tracing Dispatcher
+GE,Dialogic System Service
+GE,DHCP Client
+GE,RuntimeManager
+GE,DM3Config
+GE,NLogServer
+GE,SQL Server Reporting Services (MSSQLSERVER)

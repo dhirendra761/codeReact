@@ -1,0 +1,231 @@
+<form hideSplunkBar="true" hideEdit="true" stylesheet="ai-x620-ams.css">
+  <label>2.6 - EMPLOYEES ACCOUNTS KPIs</label>
+  <search id="base_search_activated_accounts">
+    <query>|`ams_activated_account($select_natco$, $Division$)`</query>
+    <earliest>$earliest$</earliest>
+    <latest>$latest$</latest>
+  </search>
+  <search id="base_search_deactivated_accounts">
+    <query>|`ams_deactivated_account($select_natco$, $Division$)`</query>
+    <earliest>$earliest$</earliest>
+    <latest>$latest$</latest>
+  </search>
+  <search id="base_search_activated_doublons">
+    <query>|`ams_doublons_on_activated_account($select_natco$, $Division$)`</query>
+    <earliest>$earliest$</earliest>
+    <latest>$latest$</latest>
+  </search>
+  <search id="base_search_deactivated_doublons">
+    <query>|`ams_doublons_on_deactivated_account($select_natco$, $Division$)`</query>
+    <earliest>$earliest$</earliest>
+    <latest>$latest$</latest>
+  </search>
+  <fieldset autoRun="true" submitButton="false">
+    <input type="dropdown" token="select_natco">
+      <label>Select a NatCo</label>
+      <choice value="FR">France</choice>
+      <choice value="SP">Spain</choice>
+      <choice value="UK">UK</choice>
+      <choice value="GE">Germany</choice>
+      <default>FR</default>
+      <initialValue>FR</initialValue>
+    </input>
+    <input type="dropdown" searchWhenChanged="true">
+      <label>Select Time Period:</label>
+      <choice value="Last_7_days">Last 7 days</choice>
+      <choice value="Last_month">Previous month</choice>
+      <choice value="Last_6_months">Last 6 months</choice>
+      <choice value="Last_year">Previous year</choice>
+      <choice value="Last_2_years">Last 2 years</choice>
+      <choice value="Last_3_years">Last 3 years</choice>
+      <choice value="Last_5_years">Last 5 years</choice>
+      <change>
+        <condition value="Last_7_days">
+          <set token="earliest">-7d@h</set>
+          <set token="latest">now</set>
+        </condition>
+        <condition value="Last_month">
+          <set token="earliest">-1mon@mon</set>
+          <set token="latest">now</set>
+        </condition>
+        <condition value="Last_6_months">
+          <set token="earliest">-6mon@mon</set>
+          <set token="latest">now</set>
+        </condition>
+        <condition value="Last_year">
+          <set token="earliest">-1y@y</set>
+          <set token="latest">now</set>
+        </condition>
+        <condition value="Last_2_years">
+          <set token="earliest">-2y@y</set>
+          <set token="latest">now</set>
+        </condition>
+        <condition value="Last_3_years">
+          <set token="earliest">-3y@y</set>
+          <set token="latest">now</set>
+        </condition>
+        <condition value="Last_5_years">
+          <set token="earliest">-5y@y</set>
+          <set token="latest">now</set>
+        </condition>
+      </change>
+      <default>Last_7_days</default>
+      <initialValue>Last_7_days</initialValue>
+    </input>
+    <input type="dropdown" token="sort_by">
+      <label>Sort by</label>
+      <choice value="1y">Year</choice>
+      <choice value="1mon">Month</choice>
+      <choice value="1w">week</choice>
+      <choice value="1d">Day</choice>
+      <default>1d</default>
+      <change>
+        <condition value="1y">
+          <set token="Connections_Threshold">36500</set>
+        </condition>
+        <condition value="1d">
+          <set token="Connections_Threshold">100</set>
+        </condition>
+        <condition value="1mon">
+          <set token="Connections_Threshold">3000</set>
+        </condition>
+        <condition value="1w">
+          <set token="Connections_Threshold">700</set>
+        </condition>
+      </change>
+    </input>
+    <input type="dropdown" token="Division">
+      <label>Division</label>
+      <fieldForLabel>Division</fieldForLabel>
+      <fieldForValue>Division</fieldForValue>
+      <default>*</default>
+      <initialValue>*</initialValue>
+      <search>
+        <query>|`ams_division($select_natco$)`</query>
+      </search>
+      <choice value="*">All</choice>
+    </input>
+    <input type="dropdown" token="Server">
+      <label>Server for $select_natco$</label>
+      <choice value="*">All</choice>
+      <choice value="FR0-VSAMS$select_natco$-P01">FR0-VSAMS-P01</choice>
+      <choice value="FR0-VSAMS$select_natco$-P02">FR0-VSAMS-P02</choice>
+      <fieldForLabel>ComputerName</fieldForLabel>
+      <fieldForValue>ComputerName</fieldForValue>
+      <search>
+        <query>|`ams_computerName_list`</query>
+        <earliest>0</earliest>
+        <latest></latest>
+      </search>
+      <default>*</default>
+      <initialValue>*</initialValue>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>Employees Accounts Activated - [AMS-US-12]</title>
+      <chart>
+        <search base="base_search_activated_accounts">
+          <query>| timechart dc(EmployeeID) as "Employees Accounts Activated" span=$sort_by$</query>
+        </search>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.legend.placement">bottom</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <chart>
+        <title>Employees Accounts Deactivated and Newed - [AMS-US-12]</title>
+        <search base="base_search_deactivated_accounts">
+          <query>| timechart dc(EmployeeID) as "Employees Accounts Deactivated" span=$sort_by$ | join _time [ search  index="ai-x620-ams" sourcetype=x620:ams:$select_natco$ source="x620-airbuscontract$select_natco$-inputUS12" NWDeleted="0" Siglum=* | eval _time=case(_time&gt;= strftime(relative_time(_time,"-1d"),"%Y-%m-%d %H:%M:%S.%Q") OR _time&lt;= strftime(relative_time(_time,"+0d"),"%Y-%m-%d %H:%M:%S.%Q"), _time) | table _time EmployeeID NWDeleted Siglum | timechart dc(EmployeeID) as "Employees Accounts Newed" span=$sort_by$]</query>
+        </search>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.legend.placement">bottom</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Accounts Deactivated doublons - [AMS-US-12]</title>
+      <chart>
+        <search base="base_search_deactivated_doublons">
+          <query>| stats count(sapno) as result values(_time) as _time by sapno
+| search result&gt;1
+| fields _time sapno
+| timechart count(sapno) span=$sort_by$</query>
+        </search>
+        <option name="charting.chart">column</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Accounts Activated doublons - [AMS-US-12]</title>
+      <chart>
+        <search base="base_search_activated_doublons">
+          <query>| stats count(sapno) as result values(_time) as _time by sapno
+| search result&gt;1
+| fields _time sapno
+| timechart count(sapno) span=$sort_by$</query>
+        </search>
+        <option name="charting.chart">column</option>
+        <option name="charting.drilldown">none</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Number of TA accounts connections on PROD servers - [AMS-US-14]</title>
+      <chart>
+        <search>
+          <query>|`ams_connexion-TA-account($Server$, $sort_by$, $Connections_Threshold$)`</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.abbreviation">none</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.abbreviation">none</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.abbreviation">none</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">log</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.overlayFields">Connections_Threshold</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.mode">standard</option>
+        <option name="charting.legend.placement">bottom</option>
+        <option name="charting.lineWidth">2</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+      </chart>
+    </panel>
+  </row>
+</form>

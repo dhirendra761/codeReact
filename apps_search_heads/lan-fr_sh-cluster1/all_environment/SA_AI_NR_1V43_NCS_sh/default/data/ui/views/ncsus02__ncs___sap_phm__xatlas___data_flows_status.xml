@@ -1,0 +1,102 @@
+<form stylesheet="sap17.css">
+  <label>NCS-US-02 - NCS -  SAP PHM / Xatlas -  Data flows status</label>
+  <fieldset submitButton="false" autoRun="false">
+    <input type="time" token="field1">
+      <label></label>
+      <default>
+        <earliest>-30d@d</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>Last employee import from SAP/PHM</title>
+      <single>
+        <title>Date of the last  import</title>
+        <search>
+          <query>index=ai-platform-watchdogng-log sourcetype=watchdogng* | search tags= NCS_Import_Person_Failed_number | stats  latest(_time) AS latest_time| convert ctime(latest_time) timeformat="%d/%m/%y %H:%M:%S"</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+          <refresh>10m</refresh>
+          <refreshType>delay</refreshType>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Age of last employee import</title>
+      <single>
+        <title>Last employee import from SAP PHM was</title>
+        <search>
+          <query>index=ai-platform-watchdogng-log sourcetype=watchdogng* | search tags= NCS_Import_Person_Failed_number
+| eval diff = tostring((now() - _time), "duration") 
+| eval diff_format1=replace(diff,"\+"," days ")
+| eval diff_format=replace(diff_format1,"^([^:]*)(:)([^:]*)(:)", "\1h\3m")."s"
+| head 1 
+| table diff_format</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+          <refresh>10m</refresh>
+          <refreshType>delay</refreshType>
+        </search>
+        <option name="colorMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0x53a051","0xdc4e41"]</option>
+        <option name="rangeValues">[23]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="useColors">1</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>SAP Import 1</title>
+      <table>
+        <title>Morning employee import history (4:00 AM - 9:00 AM)</title>
+        <search ref="SAP import 1 (final)">
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="count">10</option>
+        <option name="drilldown">cell</option>
+        <drilldown>
+          <link target="_blank">/app/monitoring_ncs/minimaster_idoc_quality</link>
+        </drilldown>
+      </table>
+    </panel>
+    <panel>
+      <title>SAP Import 2</title>
+      <table>
+        <title>Mid day employee import history (9:00 AM - 2:00 PM)</title>
+        <search ref="SAP import 2 (final)">
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="count">10</option>
+        <option name="drilldown">cell</option>
+        <drilldown>
+          <link target="_blank">/app/monitoring_ncs/minimaster_idoc_quality</link>
+        </drilldown>
+      </table>
+    </panel>
+    <panel>
+      <title>SAP Import 3</title>
+      <table>
+        <title>Afternoon employee import history (2:00 PM - 7:00 PM)</title>
+        <search ref="SAP Import 3">
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="count">10</option>
+        <option name="drilldown">cell</option>
+        <drilldown>
+          <link target="_blank">/app/monitoring_ncs/minimaster_idoc_quality</link>
+        </drilldown>
+      </table>
+    </panel>
+  </row>
+</form>

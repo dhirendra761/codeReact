@@ -1,0 +1,43 @@
+<form hideSplunkBar="true" hideFooter="true" hideEdit="true" stylesheet="ai-x620-ams.css">
+  <label>3.3 - AMS SERVER DETAILS</label>
+  <fieldset submitButton="false">
+    <input type="dropdown" token="natco">
+      <label>Select NATCO</label>
+      <choice value="Natco=&quot;FR&quot; OR Natco=&quot;GE&quot; OR Natco=&quot;UK&quot; OR Natco=&quot;SP&quot; OR Natco=&quot;AMS REPORT DB&quot; OR Natco=&quot;AMS DB&quot;">All</choice>
+      <choice value="Natco=&quot;FR&quot;">FR</choice>
+      <choice value="Natco=&quot;GE&quot;">GE</choice>
+      <choice value="Natco=&quot;UK&quot;">UK</choice>
+      <choice value="Natco=&quot;SP&quot;">SP</choice>
+      <choice value="Natco=&quot;AMS REPORT DB&quot;">AMS REPORT DB</choice>
+      <choice value="Natco=&quot;AMS DB&quot;">AMS DB</choice>
+      <default>Natco="FR" OR Natco="GE" OR Natco="UK" OR Natco="SP" OR Natco="AMS REPORT DB" OR Natco="AMS DB"</default>
+      <initialValue>Natco="FR"</initialValue>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <table>
+        <search>
+          <query>|`ams_ips_server`|search $natco$| table Time Status IP Natco</query>
+          <earliest>-12h@h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">100</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+        <format type="color" field="Status">
+          <colorPalette type="map">{"UP":#4FA484,"DOWN":#AF575A}</colorPalette>
+        </format>
+        <format type="color" field="Time">
+          <colorPalette type="map"></colorPalette>
+        </format>
+      </table>
+    </panel>
+  </row>
+</form>

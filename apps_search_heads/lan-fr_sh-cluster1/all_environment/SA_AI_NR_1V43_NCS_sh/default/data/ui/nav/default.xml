@@ -1,0 +1,23 @@
+<nav search_view="dashboards" color="#ABC8E2">
+  <!--<view name="search" default='true' />
+  <view name="datasets" />
+  <view name="reports" />
+  <view name="dashboards" /> -->
+  <collection label="NCS Interfaces Monitoring">
+    <view name="ncsus02__ncs___sap_phm__xatlas___data_flows_status" />
+    <view name="employee_export_from_xatlas_to_sap_phm_" />
+    <view name="dashboard_for_xatlas_and_phm_" />
+    <view name="minimaster_idoc_quality" />
+	<view name="ncsus13__ncs__bde_interfaces_monitoring" />
+    <view name="ncsus13__ncs__apd_interfaces_monitoring" />
+    <view name="ncs__external_manufacturing_interfaces_monitoring_clone" />
+  </collection>
+  <collection label="NCS Clocking machines Monitoring">
+    <view name="ncs__clocking_event_delay" />
+    <view name="ncsus5__ncs__field_managers" />
+	<view name="ncsus6__ncs__device_loads"/>
+    <view name="pinger" /> 
+    <view name="ncsus9__clock_failure_report" />
+  </collection>
+  <view name="alerts" />
+</nav>

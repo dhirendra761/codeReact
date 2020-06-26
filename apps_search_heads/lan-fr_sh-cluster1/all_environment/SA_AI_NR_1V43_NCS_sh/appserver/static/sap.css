@@ -1,0 +1,82 @@
+/* ajout logo airbus au top */
+
+	.dashboard-header.clearfix 
+    {
+      background-image: url(https://www.airbus.com/etc/designs/airbus/airbus-aem-newairbus/clientlib-base/images/airbus.svg);
+      background-size: 187px 60px;  
+      background-repeat: no-repeat;
+      padding-top: 50px;
+   	}
+   	div#dashboard1
+	{
+		color: #0d335f;
+		background-color: #0d335f;
+	} 
+    .dashboard-header h2 {
+    font-size: 28px;
+    color: white;
+    font-style: bold !important;
+	}
+    
+    div#view_2595 {
+    margin-bottom: 0px;
+	}
+    
+    div#dashboard 
+    {
+    	background: #0d335f !important;
+	}
+    
+    /* sous titre du dashboard */
+    p.description 
+    {
+    	font-style: normal;
+    	font-size: 20px;
+	}
+    
+    body 
+    {
+          margin: 0;
+          background: #f2f4f5;
+          color: #3c444d;
+          min-width: 960px;
+    	  font-family: Arial,sans-serif; /*arial en police par défaut*/
+          font-weight: 400;
+          line-height: 20px;
+          transition: margin .2s;
+    	  
+		}
+    
+   
+    /* timechart à droite */
+    
+    div#input1
+    {
+    	float: right;
+	}
+    
+    svg.svg-container 
+    {
+    background-color: #1d5ba2f5;
+ 
+	}
+    
+    h2.panel-title 
+    {
+    text-align: center;
+    font-weight: bold !important;
+    font-size: 20px !important;
+	}
+    
+    h3 
+    {
+      font-weight: normal !important;
+      text-align: center;
+      font-size: 17px !important;
+      margin-bottom: 10px !important;
+    }
+    
+    text.single-result 
+    {
+    	fill: white !important;
+	}

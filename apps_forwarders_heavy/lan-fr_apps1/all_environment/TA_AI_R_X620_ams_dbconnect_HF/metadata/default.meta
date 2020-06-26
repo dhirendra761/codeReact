@@ -1,0 +1,9 @@
+
+### AMS X620
+
+[]
+access = read : [ rtm_admin, rtm_power, db_connect_user, db_connect_admin], write : [ rtm_admin, rtm_power, db_connect_admin ]
+export = system
+owner = airbus_dbconnect
+version = 1.0
+

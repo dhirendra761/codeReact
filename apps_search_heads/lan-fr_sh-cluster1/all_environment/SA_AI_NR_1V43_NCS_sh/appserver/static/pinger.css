@@ -1,0 +1,51 @@
+body {
+          margin: 0;
+          background: #f2f4f5;
+          color: #3c444d;
+          min-width: 960px;
+    	  font-family: Arial,sans-serif; /*arial en police par défaut*/
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 20px;
+          transition: margin .2s;
+    	  
+		}
+     	div#dashboard1
+	{
+		color: #0d335f;
+		background-color: #0d335f;
+	}
+	
+	/*titre en blanc et gras*/
+	.dashboard-header h2 
+	{
+		font-size: 37px;
+		color: #f2f4f5;
+		word-wrap: break-word;
+		text-transform: none;
+		text-rendering: auto !important;
+		line-height: initial;
+	}
+
+	/* sous titre du dashboard */
+    p.description 
+    {
+    	font-style: normal;
+    	font-size: 20px;
+		color: #f4f4f4;
+	}
+	
+	.dashboard-header h2 
+	{
+		font-family: arial, sans serif;
+		background-image: url(https://www.airbus.com/etc/designs/airbus/airbus-aem-newairbus/clientlib-base/images/airbus.svg);
+		background-size: 198px 45px;
+		background-repeat: no-repeat;
+		padding-top: 50px;
+		font-size: 37px;
+		color: #f2f4f5 !important;
+		word-wrap: break-word;
+		text-rendering: auto !important;
+		text-transform: none;
+		line-height: initial;
+    }

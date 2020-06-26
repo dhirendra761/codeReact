@@ -1,0 +1,119 @@
+/* Hiding splunk default element of pannel/row/section */
+div[data-view="views/shared/appbar/Master"] {
+  background-color: #00205b;
+}
+div[data-role="underline"] {
+  background-color: #05cc05;
+}
+#disk_status_1,
+#disk_status_2,
+#disk_status_3,
+#disk_status_4,
+#cpu_usage_1,
+#cpu_usage_2,
+#cpu_usage_3,
+#cpu_usage_4 {
+  left: -80% !important;
+  zoom: 0.5;
+  bottom: -60% !important;
+  z-index: 9;
+}
+#cpu_usage_1,
+#cpu_usage_2,
+#cpu_usage_3,
+#cpu_usage_4 {
+  left: -155% !important;
+}
+#storage_fr_1,
+#storage_fr_2,
+#storage_fr_3,
+#storage_es_1,
+#storage_es_2,
+#storage_es_3,
+#storage_uk_1,
+#storage_uk_2,
+#storage_uk_3,
+#storage_ge_1,
+#storage_ge_2,
+#storage_ge_3,
+#cpu_usage_fr_1,
+#cpu_usage_fr_2,
+#cpu_usage_fr_3,
+#cpu_usage_es_1,
+#cpu_usage_es_2,
+#cpu_usage_es_3,
+#cpu_usage_ge_1,
+#cpu_usage_ge_2,
+#cpu_usage_ge_3,
+#cpu_usage_uk_1,
+#cpu_usage_uk_2,
+#cpu_usage_uk_3 {
+  z-index: 99;
+}
+#cpu_usage_fr_1,
+#cpu_usage_fr_2,
+#cpu_usage_fr_3,
+#cpu_usage_es_1,
+#cpu_usage_es_2,
+#cpu_usage_es_3,
+#cpu_usage_ge_1,
+#cpu_usage_ge_2,
+#cpu_usage_ge_3,
+#cpu_usage_uk_1,
+#cpu_usage_uk_2,
+#cpu_usage_uk_3 {
+  left: -120% !important;
+}
+text.single-result {
+  font-size: 35px !important;
+}
+#row1 .dashboard-panel,
+#row2 .dashboard-panel {
+  display: flex;
+}
+.center-align {
+  text-align: center;
+}
+h2.panel-title {
+  padding: 8px 0px 90px 5px !important;
+  font-size: 18px !important;
+  font-weight: 800 !important;
+}
+/* Hiding Error ICON */
+.dashboard-row .dashboard-panel .error-details {
+  display: none !important;
+}
+a,
+a:hover,
+a:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.imgSize {
+  height: 50px;
+  width: 50px;
+}
+.dbSize {
+  height: 80px;
+  width: 80px;
+}
+.inline-message {
+  display: none;
+}
+.icon_ram {
+  width: 75px;
+  margin-top: 16px;
+}
+
+.dashboard-panel h2 {
+  background: #00205b !important;
+  color: white !important;
+  text-align: center !important;
+  font-weight: bold !important;
+}
+
+.dashboard-title {
+  color: #00205b !important;
+  text-align: center !important;
+}

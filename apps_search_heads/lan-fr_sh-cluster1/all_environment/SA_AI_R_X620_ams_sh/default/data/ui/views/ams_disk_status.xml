@@ -1,0 +1,147 @@
+<dashboard hideSplunkBar="true" hideFooter="true" hideEdit="true" stylesheet="ai-x620-ams.css" script="cell_fill_gauge.js">
+  <label>3.6 - AMS DISK DETAILS</label>
+  <row>
+    <panel>
+      <title>Disk Usage</title>
+      <table id="table1">
+        <search>
+          <query>| rest splunk_server=fr0-vsiaas-1029 /services/server/status/partitions-space 
+| join type=outer splunk_server, mount_point 
+    [| rest splunk_server=swinelkcfb01 /services/server/status/resource-usage/iostats 
+    | eval iops = round(reads_ps + writes_ps) 
+    | fields splunk_server, mount_point, iops, cpu_pct] 
+| eval free = if(isnotnull(available), available, free) 
+| eval usage = round((capacity - free) / 1024, 2) 
+| eval capacity = round(capacity / 1024, 2) 
+| eval compare_usage = usage." / ".capacity 
+| eval pct_usage = round(usage / capacity * 100, 2) 
+| stats first(fs_type) as fs_type first(compare_usage) as compare_usage first(pct_usage) as pct_usage, first(iops) as iops, first(cpu_pct) as cpu_pct by mount_point 
+| rename mount_point as "Mount Point", fs_type as "File System Type", compare_usage as "Disk Usage (GB)", capacity as "Capacity (GB)", pct_usage as "Disk Usage (%)", iops as "I/O operations per second", cpu_pct as "I/O Bandwidth Utilization(%)"</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">10</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>AMS DISK SPACE AVAILABLE</title>
+      <single>
+        <search>
+          <query>|`ams_disk_status`</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+          <refresh>30s</refresh>
+          <refreshType>delay</refreshType>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.0</option>
+        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
+        <option name="rangeValues">[0,100,150,200]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">large</option>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="unitPosition">after</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">0</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Disk Space AVAILABLE</title>
+      <single>
+        <search>
+          <query>|`ams_disk_space_availablity_trend`</query>
+          <earliest>-7d@h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+          <refresh>30s</refresh>
+          <refreshType>delay</refreshType>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.00</option>
+        <option name="rangeColors">["0xdc4e41","0xf1813f","0x006d9c","0x53a051"]</option>
+        <option name="rangeValues">[10,20,30]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">large</option>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-1h</option>
+        <option name="underLabel">last 7 days trends</option>
+        <option name="unitPosition">before</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">0</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>AMS DISK AVAILABILTY TRENDS (last 30 days)</title>
+      <chart>
+        <search>
+          <query>|`ams_disk_availablity`</query>
+          <earliest>-30d@d</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+          <refresh>30s</refresh>
+          <refreshType>delay</refreshType>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">-45</option>
+        <option name="charting.axisTitleX.text">TIME</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.text">Size</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.abbreviation">none</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.abbreviation">none</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.abbreviation">none</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">line</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">connect</option>
+        <option name="charting.chart.showDataLabels">all</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.layout.splitSeries">1</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.mode">standard</option>
+        <option name="charting.legend.placement">bottom</option>
+        <option name="charting.lineWidth">2</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+      </chart>
+    </panel>
+  </row>
+</dashboard>

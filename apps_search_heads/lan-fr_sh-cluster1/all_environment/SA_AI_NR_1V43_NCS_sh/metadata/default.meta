@@ -1,0 +1,7 @@
+
+# Application-level permissions
+
+[]
+access = read : [airbus_1v43_user, rtm_admin, rtm_power ], write : [ rtm_admin, rtm_power ]
+export = none
+owner = admin

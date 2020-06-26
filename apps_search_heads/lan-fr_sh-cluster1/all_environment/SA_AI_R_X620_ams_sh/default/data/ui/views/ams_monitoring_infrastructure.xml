@@ -1,0 +1,1339 @@
+<dashboard hideSplunkBar="true" hideFooter="true" hideEdit="true" refresh="300" stylesheet="x620_ams_secure_transport_sh.css">
+  <label>1.1 - AMS INFRASTRUCTURE MONITORING</label>
+  <!--Start of SEARCH SECTIONS -->
+  <!--REPORT DB SEARCH -->
+  <search id="ams_report_db_server">
+    <progress>
+      <condition match="'result.resultcode' == &quot;UP&quot;">
+        <set token="icon_show_Green_ams_report_db_server">true</set>
+        <unset token="icon_show_Red_ams_report_db_server"></unset>
+      </condition>
+      <condition match="'result.resultcode' == &quot;DOWN&quot;">
+        <unset token="icon_show_Green_ams_report_db_server"></unset>
+        <set token="icon_show_Red_ams_report_db_server">true</set>
+      </condition>
+    </progress>
+    <query>|`ams_report_db_server`</query>
+    <earliest>-2m@m</earliest>
+    <latest>now</latest>
+  </search>
+  <!--SERVER search for FRANCE  -->
+  <search id="server_fr">
+    <progress>
+      <condition match="'result.resultcode' == &quot;UP&quot;">
+        <set token="icon_show_Green_server_fr">true</set>
+        <unset token="icon_show_Red_server_fr"></unset>
+      </condition>
+      <condition match="'result.resultcode' == &quot;DOWN&quot;">
+        <unset token="icon_show_Green_server_fr"></unset>
+        <set token="icon_show_Red_server_fr">true</set>
+      </condition>
+    </progress>
+    <query>|`ams_server_fr`</query>
+    <earliest>-12h@h</earliest>
+    <latest>now</latest>
+  </search>
+  <!--SERVER search for SPAIN  -->
+  <search id="server_sp">
+    <progress>
+      <condition match="'result.resultcode' == &quot;UP&quot;">
+        <set token="icon_show_Green_server_sp">true</set>
+        <unset token="icon_show_Red_server_sp"></unset>
+      </condition>
+      <condition match="'result.resultcode' == &quot;DOWN&quot;">
+        <unset token="icon_show_Green_server_sp"></unset>
+        <set token="icon_show_Red_server_sp">true</set>
+      </condition>
+    </progress>
+    <query>|`ams_server_sp`</query>
+    <earliest>-12h@h</earliest>
+    <latest>now</latest>
+  </search>
+  <!--SERVER search for GERMANY  -->
+  <search id="server_ge">
+    <progress>
+      <condition match="'result.resultcode' == &quot;UP&quot;">
+        <set token="icon_show_Green_server_ge">true</set>
+        <unset token="icon_show_Red_server_ge"></unset>
+      </condition>
+      <condition match="'result.resultcode' == &quot;DOWN&quot;">
+        <unset token="icon_show_Green_server_ge"></unset>
+        <set token="icon_show_Red_server_ge">true</set>
+      </condition>
+    </progress>
+    <query>|`ams_server_ge`</query>
+    <earliest>-12h@h</earliest>
+    <latest>now</latest>
+  </search>
+  <!--SERVER search for UNITED KINGDOM  -->
+  <search id="server_uk">
+    <progress>
+      <condition match="'result.resultcode' == &quot;UP&quot;">
+        <set token="icon_show_Green_server_uk">true</set>
+        <unset token="icon_show_Red_server_uk"></unset>
+      </condition>
+      <condition match="'result.resultcode' == &quot;DOWN&quot;">
+        <unset token="icon_show_Green_server_uk"></unset>
+        <set token="icon_show_Red_server_uk">true</set>
+      </condition>
+    </progress>
+    <query>|`ams_server_uk`</query>
+    <earliest>-12h@h</earliest>
+    <latest>now</latest>
+  </search>
+  <!--WEBSITE Search for FRANCE  -->
+  <search id="website_status">
+	<query>|`website_status`</query>
+    <earliest>-12h@h</earliest>
+    <latest>now</latest>
+	</search>
+	<search base="website_status" id="website_fr">
+    <progress>
+      <condition match="'result.Status'== &quot;200&quot;">
+        <set token="icon_show_Green_website_fr">true</set>
+        <unset token="icon_show_Red_website_fr"></unset>
+      </condition>
+      <condition match="'result.Status' != &quot;200&quot;">
+        <unset token="icon_show_Green_website_fr"></unset>
+        <set token="icon_show_Red_website_fr">true</set>
+      </condition>
+    </progress>
+    <query>| search Server=FR</query>
+  </search>
+  <!--WEBSITE Search for SPAIN  -->
+  <search base="website_status" id="website_es">
+    <progress>
+      <condition match="'result.Status'== &quot;200&quot;">
+        <set token="icon_show_Green_website_es">true</set>
+        <unset token="icon_show_Red_website_es"></unset>
+      </condition>
+      <condition match="'result.Status' != &quot;200&quot;">
+        <unset token="icon_show_Green_website_es"></unset>
+        <set token="icon_show_Red_website_es">true</set>
+      </condition>
+    </progress>
+    <query>| search Server=SP</query>
+  </search>
+  <!--WEBSITE Search for UNITED KINGDOM  -->
+  <search base="website_status" id="website_uk">
+    <progress>
+      <condition match="'result.Status'== &quot;200&quot;">
+        <set token="icon_show_Green_website_uk">true</set>
+        <unset token="icon_show_Red_website_uk"></unset>
+      </condition>
+      <condition match="'result.Status' != &quot;200&quot;">
+        <unset token="icon_show_Green_website_uk"></unset>
+        <set token="icon_show_Red_website_uk">true</set>
+      </condition>
+    </progress>
+    <query>| search Server=UK</query>
+  </search>
+  <!--WEBSITE Search for GERMANY  -->
+  <search base="website_status" id="website_ge">
+    <progress>
+      <condition match="'result.Status'== &quot;200&quot;">
+        <set token="icon_show_Green_website_ge">true</set>
+        <unset token="icon_show_Red_website_ge"></unset>
+      </condition>
+      <condition match="'result.Status' != &quot;200&quot;">
+        <unset token="icon_show_Green_website_ge"></unset>
+        <set token="icon_show_Red_website_ge">true</set>
+      </condition>
+    </progress>
+    <query>| search Server=GE</query>
+  </search>
+  <!--SERVICES Search for FRANCE  -->
+   <search id="service_status">
+    <query>|`service_status`</query>
+    <earliest>-4h@h</earliest>
+    <latest>now</latest>
+  </search>
+  <search base="service_status" id="service_fr">
+    <query>| where natco="FR"</query>
+    <progress>
+      <condition match="'job.resultCount' == 0">
+        <set token="icon_show_Green_service_fr">true</set>
+        <unset token="icon_show_Red_service_fr"></unset>
+      </condition>
+      <condition match="'job.resultCount' != 0">
+        <unset token="icon_show_Green_service_fr"></unset>
+        <set token="icon_show_Red_service_fr">true</set>
+      </condition>
+    </progress>
+  </search>
+  <!--SERVICES Search for UNITED KINGDOM  -->
+  <search base="service_status" id="service_uk">
+    <query> | where natco="UK"</query>
+    <progress>
+      <condition match="'job.resultCount' == 0">
+        <set token="icon_show_Green_service_uk">true</set>
+        <unset token="icon_show_Red_service_uk"></unset>
+      </condition>
+      <condition match="'job.resultCount' != 0">
+        <unset token="icon_show_Green_service_uk"></unset>
+        <set token="icon_show_Red_service_uk">true</set>
+      </condition>
+    </progress>
+  </search>
+  <!--SERVICES Search for SPAIN  -->
+  <search base="service_status" id="service_es">
+    <query> | where natco="ES"</query>
+    <progress>
+      <condition match="'job.resultCount' == 0">
+        <set token="icon_show_Green_service_es">true</set>
+        <unset token="icon_show_Red_service_es"></unset>
+      </condition>
+      <condition match="'job.resultCount' != 0">
+        <unset token="icon_show_Green_service_es"></unset>
+        <set token="icon_show_Red_service_es">true</set>
+      </condition>
+    </progress>
+  </search>
+  <!--SERVICES Search for GERMANY  -->
+  <search base="service_status" id="service_ge">
+    <query> | where natco="GE"</query>
+    <progress>
+      <condition match="'job.resultCount' == 0">
+        <set token="icon_show_Green_service_ge">true</set>
+        <unset token="icon_show_Red_service_ge"></unset>
+      </condition>
+      <condition match="'job.resultCount' != 0">
+        <unset token="icon_show_Green_service_ge"></unset>
+        <set token="icon_show_Red_service_ge">true</set>
+      </condition>
+    </progress>
+  </search>
+  <!--CALLTREE Search for FRANCE  -->
+  <search id="calltree_status">
+    <query>|`calltree_status`</query>
+    <earliest>-4h@h</earliest>
+    <latest>now</latest>
+  </search>
+  <search base="calltree_status" id="calltree_fr">
+    <query>| where Natcos="FR"</query>
+    <progress>
+      <condition match="'job.resultCount' != 0">
+        <set token="icon_show_Green_calltree_fr">true</set>
+        <unset token="icon_show_Red_calltree_fr"></unset>
+      </condition>
+      <condition match="'job.resultCount' == 0">
+        <unset token="icon_show_Green_calltree_fr"></unset>
+        <set token="icon_show_Red_calltree_fr">true</set>
+      </condition>
+    </progress>
+  </search>
+  <!--CALLTREE Search for SPAIN  -->
+  <search base="calltree_status" id="calltree_sp">
+    <query>| where Natcos="SP"</query>
+    <progress>
+      <condition match="'job.resultCount' != 0">
+        <set token="icon_show_Green_calltree_sp">true</set>
+        <unset token="icon_show_Red_calltree_sp"></unset>
+      </condition>
+      <condition match="'job.resultCount' == 0">
+        <unset token="icon_show_Green_calltree_sp"></unset>
+        <set token="icon_show_Red_calltree_sp">true</set>
+      </condition>
+    </progress>
+  </search>
+  <!--CALLTREE Search for GERMANY  -->
+  <search base="calltree_status" id="calltree_ge">
+    <query>| where Natcos="GE"</query>
+    <progress>
+      <condition match="'job.resultCount' != 0">
+        <set token="icon_show_Green_calltree_ge">true</set>
+        <unset token="icon_show_Red_calltree_ge"></unset>
+      </condition>
+      <condition match="'job.resultCount' == 0">
+        <unset token="icon_show_Green_calltree_ge"></unset>
+        <set token="icon_show_Red_calltree_ge">true</set>
+      </condition>
+    </progress>
+  </search>
+  <!--CALLTREE Search for UNITED KINGDOM  -->
+  <search base="calltree_status" id="calltree_uk">
+    <query>| where Natcos="UK"</query>
+    <progress>
+      <condition match="'job.resultCount' != 0">
+        <set token="icon_show_Green_calltree_uk">true</set>
+        <unset token="icon_show_Red_calltree_uk"></unset>
+      </condition>
+      <condition match="'job.resultCount' == 0">
+        <unset token="icon_show_Green_calltree_uk"></unset>
+        <set token="icon_show_Red_calltree_uk">true</set>
+      </condition>
+    </progress>
+  </search>
+  <!--RAM Search for FRANCE  -->
+  <search id="ams_ram_status">
+    <query>|`ams_ram_status`</query>
+    <earliest>-24h@h</earliest>
+    <latest>now</latest>
+    <refresh>30s</refresh>
+    <refreshType>delay</refreshType>
+  </search>
+  <search base="ams_ram_status" id="ram_fr">
+    <query>| search natco=FR</query>
+    <progress>
+       <condition match="'result.RAM' &gt; 0 AND 'result.RAM' &lt; 75">
+        <set token="icon_show_green_ram_fr">true</set>
+        <unset token="icon_show_orange_ram_fr"></unset>
+        <unset token="icon_show_red_ram_fr"></unset>
+      </condition>
+      <condition match="'result.RAM' &gt; 75 AND 'result.RAM' &lt; 90">
+       <set token="icon_show_orange_ram_fr">true</set>
+        <unset token="icon_show_green_ram_fr"></unset>
+        <unset token="icon_show_red_ram_fr"></unset>
+      </condition>
+      <condition match="'result.RAM' &gt; 90">
+        <set token="icon_show_red_ram_fr">true</set>
+        <unset token="icon_show_orange_ram_fr"></unset>
+        <unset token="icon_show_green_ram_fr"></unset>
+      </condition>
+    </progress>
+  </search>
+  <!--RAM Search for SPAIN  -->
+  <search base="ams_ram_status" id="ram_sp">
+    <query>| search natco=SP</query>
+    <progress>
+       <condition match="'result.RAM' &gt; 0 AND 'result.RAM' &lt; 75">
+        <set token="icon_show_green_ram_sp">true</set>
+        <unset token="icon_show_orange_ram_sp"></unset>
+        <unset token="icon_show_red_ram_sp"></unset>
+      </condition>
+      <condition match="'result.RAM' &gt; 75 AND 'result.RAM' &lt; 90">
+       <set token="icon_show_orange_ram_sp">true</set>
+        <unset token="icon_show_green_ram_sp"></unset>
+        <unset token="icon_show_red_ram_sp"></unset>
+      </condition>
+      <condition match="'result.RAM' &gt; 90">
+        <set token="icon_show_red_ram_sp">true</set>
+        <unset token="icon_show_orange_ram_sp"></unset>
+        <unset token="icon_show_green_ram_sp"></unset>
+      </condition>
+    </progress>
+  </search>
+  <!--RAM Search for GERMANY  -->
+  <search base="ams_ram_status" id="ram_ge">
+    <query>| search natco=GE</query>
+    <progress>
+       <condition match="'result.RAM' &gt; 0 AND 'result.RAM' &lt; 75">
+        <set token="icon_show_green_ram_ge">true</set>
+        <unset token="icon_show_orange_ram_ge"></unset>
+        <unset token="icon_show_red_ram_ge"></unset>
+      </condition>
+      <condition match="'result.RAM' &gt; 75 AND 'result.RAM' &lt; 90">
+       <set token="icon_show_orange_ram_ge">true</set>
+        <unset token="icon_show_green_ram_ge"></unset>
+        <unset token="icon_show_red_ram_ge"></unset>
+      </condition>
+      <condition match="'result.RAM' &gt; 90">
+        <set token="icon_show_red_ram_ge">true</set>
+        <unset token="icon_show_orange_ram_ge"></unset>
+        <unset token="icon_show_green_ram_ge"></unset>
+      </condition>
+    </progress>
+  </search>
+  <!--RAM Search for UNITED KINGDOM  -->
+  <search base="ams_ram_status" id="ram_uk">
+    <query>| search natco=UK</query>
+    <progress>
+       <condition match="'result.RAM' &gt; 0 AND 'result.RAM' &lt; 75">
+        <set token="icon_show_green_ram_uk">true</set>
+        <unset token="icon_show_orange_ram_uk"></unset>
+        <unset token="icon_show_red_ram_uk"></unset>
+      </condition>
+      <condition match="'result.RAM' &gt; 75 AND 'result.RAM' &lt; 90">
+       <set token="icon_show_orange_ram_uk">true</set>
+        <unset token="icon_show_green_ram_uk"></unset>
+        <unset token="icon_show_red_ram_uk"></unset>
+      </condition>
+      <condition match="'result.RAM' &gt; 90">
+        <set token="icon_show_red_ram_uk">true</set>
+        <unset token="icon_show_orange_ram_uk"></unset>
+        <unset token="icon_show_green_ram_uk"></unset>
+      </condition>
+    </progress>
+  </search>
+  <!--DATABASE Server Search -->
+  <search id="ams_db_server">
+    <progress>
+      <condition match="'result.resultcode' == &quot;UP&quot;">
+        <set token="icon_show_Green_ams_db_server">true</set>
+        <unset token="icon_show_Red_ams_db_server"></unset>
+      </condition>
+      <condition match="'result.resultcode' == &quot;DOWN&quot;">
+        <unset token="icon_show_Green_ams_db_server"></unset>
+        <set token="icon_show_Red_ams_db_server">true</set>
+      </condition>
+    </progress>
+    <query>|`ams_db_server`</query>
+    <earliest>-2m@m</earliest>
+    <latest>now</latest>
+  </search>
+  <!--END of SEARCH SECTIONS -->
+  <!--START of VISUALIZATION DASHBOARD -->
+  <!--FRANCE Visualization -->
+  <!--GERMANY Visualization -->
+  <!--DATABSE Visualization -->
+  <!--END of VISUALIZATION DASHBOARD -->
+  <row id="row1">
+    <panel>
+      <title>AMS FR</title>
+      <html depends="$icon_show_Green_server_fr$">
+              
+                <h3 class="center-align">Server</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_server_dashboard?form.natco=Natco%3D&quot;FR&quot;">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Server_Green.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Red_server_fr$">
+                <h3 class="center-align">Server</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_server_dashboard?form.natco=Natco%3D&quot;FR&quot;">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Server_Red.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Green_website_fr$">
+                <h3 class="center-align">Website</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/website_monitoring_dashboard?form.natco=Server%3D&quot;FR&quot;">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Website_Green.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Red_website_fr$">
+                <h3 class="center-align">Website</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/website_monitoring_dashboard?form.natco=Server%3D&quot;FR&quot;">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Website_Red.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Green_service_fr$">
+                <h3 class="center-align">Services</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_service_dashboard?form.natco_service=natco%3D&quot;FR&quot;">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Services_Green.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Red_service_fr$">
+                <h3 class="center-align">Services</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_service_dashboard?form.natco_service=natco%3D&quot;FR&quot;">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Services_Red.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Green_calltree_fr$">
+                <h3 class="center-align">CallTree</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_call_tree_dashboard?form.natco=natco%3D&quot;FR&quot;&amp;form.status=*">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Call_tree_Green.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Red_calltree_fr$">
+                <h3 class="center-align">CallTree</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_call_tree_dashboard?form.natco=natco%3D&quot;FR&quot;&amp;form.status=*">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Call_tree_Red.svg"/>
+                    </a>
+                </p>
+      </html>
+      <html depends="$icon_show_green_ram_fr$">
+          <h3 class="center-align">RAM</h3>
+          <p class="imgSize icon_ram center-align">
+              <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_ram_status">
+                  <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/green_ram.svg"/>
+              </a>
+          </p>
+      </html>
+      <html depends="$icon_show_orange_ram_fr$">
+          <h3 class="center-align">RAM</h3>
+          <p class="imgSize icon_ram center-align">
+              <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_ram_status">
+                  <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/orange_ram.svg"/>
+              </a>
+          </p>
+      </html>
+      <html depends="$icon_show_red_ram_fr$">
+          <h3 class="center-align">RAM</h3>
+          <p class="imgSize icon_ram center-align">
+              <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_ram_status">
+                  <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/red_ram.svg"/>
+              </a>
+          </p>
+      </html>
+      <html id="storage_fr_1" depends="$icon_show_Green$">
+                <h3 class="center-align">Storage</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_disk_status">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Storage_Green.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html id="storage_fr_2" depends="$icon_show_Orange$">
+                <h3 class="center-align">Storage</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_disk_status">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Storage_Orange.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html id="storage_fr_3" depends="$icon_show_Red$">
+                <h3 class="center-align">Storage</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_disk_status">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Storage_Red.svg"/>
+                    </a>
+                </p>
+            </html>
+      <single id="disk_status_1">
+        <search>
+          <progress>
+            <condition match="'result.Value' &lt;= &quot;80&quot;">
+              <set token="icon_show_Green">true</set>
+              <unset token="icon_show_Orange"></unset>
+              <unset token="icon_show_Red"></unset>
+            </condition>
+            <condition match="'result.Value' &gt;= &quot;80&quot; &amp;&amp; 'result.Value' &lt;= &quot;90&quot;">
+              <unset token="icon_show_Green"></unset>
+              <set token="icon_show_Orange">true</set>
+              <unset token="icon_show_Red"></unset>
+            </condition>
+            <condition match="'result.Value' &gt;= &quot;90&quot;">
+              <unset token="icon_show_Green"></unset>
+              <unset token="icon_show_Orange"></unset>
+              <set token="icon_show_Red">true</set>
+            </condition>
+          </progress>
+          <query>|`ams_disk_status`</query>
+          <earliest>-4h@h</earliest>
+          <latest></latest>
+          <sampleRatio>1</sampleRatio>
+          <refresh>30s</refresh>
+          <refreshType>delay</refreshType>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.00</option>
+        <option name="rangeColors">["0x53a051","0xf1813f","0xdc4e41","0xdc4e41"]</option>
+        <option name="rangeValues">[80,90,100]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">0</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">small</option>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="unitPosition">before</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">0</option>
+        <option name="trendInterval">auto</option>
+      </single>
+      <html id="cpu_usage_fr_1" depends="$icon_show_Green$">
+                <h3 class="center-align">CPU</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_disk__cpu_dashboard">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/CPU_Green.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html id="cpu_usage_fr_2" depends="$icon_show_Orange$">
+                <h3 class="center-align">CPU</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_disk__cpu_dashboard">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/CPU_Orange.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html id="cpu_usage_fr_3" depends="$icon_show_Red$">
+                <h3 class="center-align">CPU</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_disk__cpu_dashboard">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/CPU_Red.svg"/>
+                    </a>
+                </p>
+            </html>
+      <single id="cpu_usage_1">
+        <search>
+          <progress>
+            <condition match="'result.CPU' &lt;= &quot;80&quot;">
+              <set token="icon_show_Green">true</set>
+              <unset token="icon_show_Orange"></unset>
+              <unset token="icon_show_Red"></unset>
+            </condition>
+            <condition match="'result.CPU' &gt;= &quot;80&quot; &amp;&amp; 'result.Value' &lt;= &quot;90&quot;">
+              <unset token="icon_show_Green"></unset>
+              <set token="icon_show_Orange">true</set>
+              <unset token="icon_show_Red"></unset>
+            </condition>
+            <condition match="'result.CPU' &gt;= &quot;90&quot;">
+              <unset token="icon_show_Green"></unset>
+              <unset token="icon_show_Orange"></unset>
+              <set token="icon_show_Red">true</set>
+            </condition>
+          </progress>
+          <query>|`ams_processor_status`</query>
+          <earliest>-4h@h</earliest>
+          <latest></latest>
+          <sampleRatio>1</sampleRatio>
+          <refresh>30s</refresh>
+          <refreshType>delay</refreshType>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.00</option>
+        <option name="rangeColors">["0x53a051","0xf1813f","0xdc4e41","0xdc4e41"]</option>
+        <option name="rangeValues">[80,90,100]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">0</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">small</option>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-1h</option>
+        <option name="unitPosition">before</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">0</option>
+      </single>
+    </panel>
+    <panel>
+      <title>AMS SP</title>
+      <html depends="$icon_show_Green_server_sp$">
+                <h3 class="center-align">Server</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_server_dashboard?form.natco=Natco%3D&quot;SP&quot;">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Server_Green.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Red_server_sp$">
+                <h3 class="center-align">Server</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_server_dashboard?form.natco=Natco%3D&quot;SP&quot;">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Server_Red.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Green_website_es$">
+                <h3 class="center-align">Website</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/website_monitoring_dashboard?form.natco=Server%3D&quot;SP&quot;">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Website_Green.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Red_website_es$">
+                <h3 class="center-align">Website</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/website_monitoring_dashboard?form.natco=Server%3D&quot;SP&quot;">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Website_Red.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Green_service_es$">
+                <h3 class="center-align">Services</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_service_dashboard?form.natco_service=natco%3D&quot;SP&quot;">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Services_Green.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Red_service_es$">
+                <h3 class="center-align">Services</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_call_tree_dashboard?form.natco=natco%3D&quot;SP&quot;&amp;form.status=*">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Services_Red.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Green_calltree_sp$">
+                <h3 class="center-align">CallTree</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_call_tree_dashboard?form.natco=natco%3D&quot;SP&quot;&amp;form.status=*">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Call_tree_Green.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Red_calltree_sp$">
+                <h3 class="center-align">CallTree</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_service_dashboard?form.natco_service=natco%3D&quot;SP&quot;">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Call_tree_Red.svg"/>
+                    </a>
+                </p>
+      </html>
+      <html depends="$icon_show_green_ram_sp$">
+          <h3 class="center-align">RAM</h3>
+          <p class="imgSize icon_ram center-align">
+              <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_ram_status">
+                  <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/green_ram.svg"/>
+              </a>
+          </p>
+      </html>
+      <html depends="$icon_show_orange_ram_sp$">
+          <h3 class="center-align">RAM</h3>
+          <p class="imgSize icon_ram center-align">
+              <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_ram_status">
+                  <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/orange_ram.svg"/>
+              </a>
+          </p>
+      </html>
+      <html depends="$icon_show_red_ram_sp$">
+          <h3 class="center-align">RAM</h3>
+          <p class="imgSize icon_ram center-align">
+              <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_ram_status">
+                  <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/red_ram.svg"/>
+              </a>
+          </p>
+      </html>
+      <html id="storage_es_1" depends="$icon_show_Green$">
+                <h3 class="center-align">Storage</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_disk_status">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Storage_Green.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html id="storage_es_2" depends="$icon_show_Orange$">
+                <h3 class="center-align">Storage</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_disk_status">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Storage_Orange.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html id="storage_es_3" depends="$icon_show_Red$">
+                <h3 class="center-align">Storage</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_disk_status">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Storage_Red.svg"/>
+                    </a>
+                </p>
+            </html>
+      <single id="disk_status_2">
+        <search>
+          <progress>
+            <condition match="'result.Value' &lt;= &quot;80&quot;">
+              <set token="icon_show_Green">true</set>
+              <unset token="icon_show_Orange"></unset>
+              <unset token="icon_show_Red"></unset>
+            </condition>
+            <condition match="'result.Value' &gt;= &quot;80&quot; &amp;&amp; 'result.Value' &lt;= &quot;90&quot;">
+              <unset token="icon_show_Green"></unset>
+              <set token="icon_show_Orange">true</set>
+              <unset token="icon_show_Red"></unset>
+            </condition>
+            <condition match="'result.Value' &gt;= &quot;90&quot;">
+              <unset token="icon_show_Green"></unset>
+              <unset token="icon_show_Orange"></unset>
+              <set token="icon_show_Red">true</set>
+            </condition>
+          </progress>
+          <query>|`ams_disk_status`</query>
+          <earliest>-4h@h</earliest>
+          <latest></latest>
+          <sampleRatio>1</sampleRatio>
+          <refresh>30s</refresh>
+          <refreshType>delay</refreshType>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.00</option>
+        <option name="rangeColors">["0x53a051","0xf1813f","0xdc4e41","0xdc4e41"]</option>
+        <option name="rangeValues">[80,90,100]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">0</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">small</option>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-1h</option>
+        <option name="unitPosition">before</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">0</option>
+      </single>
+      <html id="cpu_usage_es_1" depends="$icon_show_Green$">
+                <h3 class="center-align">CPU</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_disk__cpu_dashboard">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/CPU_Green.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html id="cpu_usage_es_2" depends="$icon_show_Orange$">
+                <h3 class="center-align">CPU</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_disk__cpu_dashboard">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/CPU_Orange.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html id="cpu_usage_es_3" depends="$icon_show_Red$">
+                <h3 class="center-align">CPU</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_disk__cpu_dashboard">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/CPU_Red.svg"/>
+                    </a>
+                </p>
+            </html>
+      <single id="cpu_usage_2">
+        <search>
+          <progress>
+            <condition match="'result.CPU' &lt;= &quot;80&quot;">
+              <set token="icon_show_Green">true</set>
+              <unset token="icon_show_Orange"></unset>
+              <unset token="icon_show_Red"></unset>
+            </condition>
+            <condition match="'result.CPU' &gt;= &quot;80&quot; &amp;&amp; 'result.Value' &lt;= &quot;90&quot;">
+              <unset token="icon_show_Green"></unset>
+              <set token="icon_show_Orange">true</set>
+              <unset token="icon_show_Red"></unset>
+            </condition>
+            <condition match="'result.CPU' &gt;= &quot;90&quot;">
+              <unset token="icon_show_Green"></unset>
+              <unset token="icon_show_Orange"></unset>
+              <set token="icon_show_Red">true</set>
+            </condition>
+          </progress>
+          <query>|`ams_processor_status`</query>
+          <earliest>-4h@h</earliest>
+          <latest></latest>
+          <sampleRatio>1</sampleRatio>
+          <refresh>30s</refresh>
+          <refreshType>delay</refreshType>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.00</option>
+        <option name="rangeColors">["0x53a051","0xf1813f","0xdc4e41","0xdc4e41"]</option>
+        <option name="rangeValues">[80,90,100]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">0</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">small</option>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-1h</option>
+        <option name="unitPosition">before</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">0</option>
+      </single>
+    </panel>
+  </row>
+  <row id="row2">
+    <panel>
+      <title>AMS GE</title>
+      <html depends="$icon_show_Green_server_ge$">
+                <h3 class="center-align">Server</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_server_dashboard?form.natco=Natco%3D&quot;GE&quot;">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Server_Green.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Red_server_ge$">
+                <h3 class="center-align">Server</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_server_dashboard?form.natco=Natco%3D&quot;GE&quot;">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Server_Red.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Green_website_ge$">
+                <h3 class="center-align">Website</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/website_monitoring_dashboard?form.natco=Server%3D&quot;GE&quot;">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Website_Green.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Red_website_ge$">
+                <h3 class="center-align">Website</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/website_monitoring_dashboard?form.natco=Server%3D&quot;GE&quot;">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Website_Red.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Green_service_ge$">
+                <h3 class="center-align">Services</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_service_dashboard?form.natco_service=natco%3D&quot;GE&quot;">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Services_Green.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Red_service_ge$">
+                <h3 class="center-align">Services</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_service_dashboard?form.natco_service=natco%3D&quot;GE&quot;">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Services_Red.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Green_calltree_ge$">
+                <h3 class="center-align">CallTree</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_call_tree_dashboard?form.natco=natco%3D&quot;GE&quot;&amp;form.status=*">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Call_tree_Green.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Red_calltree_ge$">
+                <h3 class="center-align">CallTree</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_call_tree_dashboard?form.natco=natco%3D&quot;GE&quot;&amp;form.status=*">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Call_tree_Red.svg"/>
+                    </a>
+                </p>
+      </html>
+      <html depends="$icon_show_green_ram_ge$">
+          <h3 class="center-align">RAM</h3>
+          <p class="imgSize icon_ram center-align">
+              <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_ram_status">
+                  <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/green_ram.svg"/>
+              </a>
+          </p>
+      </html>
+      <html depends="$icon_show_orange_ram_ge$">
+          <h3 class="center-align">RAM</h3>
+          <p class="imgSize icon_ram center-align">
+              <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_ram_status">
+                  <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/orange_ram.svg"/>
+              </a>
+          </p>
+      </html>
+      <html depends="$icon_show_red_ram_ge$">
+          <h3 class="center-align">RAM</h3>
+          <p class="imgSize icon_ram center-align">
+              <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_ram_status">
+                  <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/red_ram.svg"/>
+              </a>
+          </p>
+      </html>
+      <html id="storage_ge_1" depends="$icon_show_Green$">
+                <h3 class="center-align">Storage</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_disk_status">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Storage_Green.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html id="storage_ge_2" depends="$icon_show_Orange$">
+                <h3 class="center-align">Storage</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_disk_status">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Storage_Orange.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html id="storage_ge_3" depends="$icon_show_Red$">
+                <h3 class="center-align">Storage</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_disk_status">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Storage_Red.svg"/>
+                    </a>
+                </p>
+            </html>
+      <single id="disk_status_3">
+        <search>
+          <progress>
+            <condition match="'result.Value' &lt;= &quot;80&quot;">
+              <set token="icon_show_Green">true</set>
+              <unset token="icon_show_Orange"></unset>
+              <unset token="icon_show_Red"></unset>
+            </condition>
+            <condition match="'result.Value' &gt;= &quot;80&quot; &amp;&amp; 'result.Value' &lt;= &quot;90&quot;">
+              <unset token="icon_show_Green"></unset>
+              <set token="icon_show_Orange">true</set>
+              <unset token="icon_show_Red"></unset>
+            </condition>
+            <condition match="'result.Value' &gt;= &quot;90&quot;">
+              <unset token="icon_show_Green"></unset>
+              <unset token="icon_show_Orange"></unset>
+              <set token="icon_show_Red">true</set>
+            </condition>
+          </progress>
+          <query>|`ams_disk_status`</query>
+          <earliest>-4h@h</earliest>
+          <latest></latest>
+          <sampleRatio>1</sampleRatio>
+          <refresh>30s</refresh>
+          <refreshType>delay</refreshType>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.00</option>
+        <option name="rangeColors">["0x53a051","0xf1813f","0xdc4e41","0xdc4e41"]</option>
+        <option name="rangeValues">[80,90,100]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">0</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">small</option>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-1h</option>
+        <option name="unitPosition">before</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">0</option>
+      </single>
+      <html id="cpu_usage_ge_1" depends="$icon_show_Green$">
+                <h3 class="center-align">CPU</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_disk__cpu_dashboard">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/CPU_Green.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html id="cpu_usage_ge_2" depends="$icon_show_Orange$">
+                <h3 class="center-align">CPU</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_disk__cpu_dashboard">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/CPU_Orange.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html id="cpu_usage_ge_3" depends="$icon_show_Red$">
+                <h3 class="center-align">CPU</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_disk__cpu_dashboard">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/CPU_Red.svg"/>
+                    </a>
+                </p>
+            </html>
+      <single id="cpu_usage_3">
+        <search>
+          <progress>
+            <condition match="'result.CPU' &lt;= &quot;80&quot;">
+              <set token="icon_show_Green">true</set>
+              <unset token="icon_show_Orange"></unset>
+              <unset token="icon_show_Red"></unset>
+            </condition>
+            <condition match="'result.CPU' &gt;= &quot;80&quot; &amp;&amp; 'result.Value' &lt;= &quot;90&quot;">
+              <unset token="icon_show_Green"></unset>
+              <set token="icon_show_Orange">true</set>
+              <unset token="icon_show_Red"></unset>
+            </condition>
+            <condition match="'result.CPU' &gt;= &quot;90&quot;">
+              <unset token="icon_show_Green"></unset>
+              <unset token="icon_show_Orange"></unset>
+              <set token="icon_show_Red">true</set>
+            </condition>
+          </progress>
+          <query>|`ams_processor_status`</query>
+          <earliest>-4h@h</earliest>
+          <latest></latest>
+          <sampleRatio>1</sampleRatio>
+          <refresh>30s</refresh>
+          <refreshType>delay</refreshType>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.00</option>
+        <option name="rangeColors">["0x53a051","0xf1813f","0xdc4e41","0xdc4e41"]</option>
+        <option name="rangeValues">[80,90,100]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">0</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">small</option>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-1h</option>
+        <option name="unitPosition">before</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">0</option>
+      </single>
+    </panel>
+    <panel>
+      <title>AMS UK</title>
+      <html depends="$icon_show_Green_server_uk$">
+                <h3 class="center-align">Server</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_server_dashboard?form.natco=Natco%3D&quot;UK&quot;">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Server_Green.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Red_server_uk$">
+                <h3 class="center-align">Server</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_server_dashboard?form.natco=Natco%3D&quot;UK&quot;">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Server_Red.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Green_website_uk$">
+                <h3 class="center-align">Website</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/website_monitoring_dashboard?form.natco=Server%3D&quot;UK&quot;">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Website_Green.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Red_website_uk$">
+                <h3 class="center-align">Website</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/website_monitoring_dashboard?form.natco=Server%3D&quot;UK&quot;">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Website_Red.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Green_service_uk$">
+                <h3 class="center-align">Services</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_service_dashboard?form.natco_service=natco%3D&quot;UK&quot;">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Services_Green.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html id="storage_uk_1" depends="$icon_show_Red_service_uk$">
+                <h3 class="center-align">Services</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_service_dashboard?form.natco_service=natco%3D&quot;UK&quot;">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Services_Red.svg"/>
+                    </a>
+                </p>
+      </html>
+      <html depends="$icon_show_Green_calltree_uk$">
+                <h3 class="center-align">CallTree</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_call_tree_dashboard?form.natco=natco%3D&quot;UK&quot;&amp;form.status=*">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Call_tree_Green.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Red_calltree_uk$">
+                <h3 class="center-align">CallTree</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_call_tree_dashboard?form.natco=natco%3D&quot;UK&quot;&amp;form.status=*">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Call_tree_Red.svg"/>
+                    </a>
+                </p>
+      </html>
+      <html depends="$icon_show_green_ram_uk$">
+          <h3 class="center-align">RAM</h3>
+          <p class="imgSize icon_ram center-align">
+              <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_ram_status">
+                  <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/green_ram.svg"/>
+              </a>
+          </p>
+      </html>
+      <html depends="$icon_show_orange_ram_uk$">
+          <h3 class="center-align">RAM</h3>
+          <p class="imgSize icon_ram center-align">
+              <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_ram_status">
+                  <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/orange_ram.svg"/>
+              </a>
+          </p>
+      </html>
+      <html depends="$icon_show_red_ram_uk$">
+          <h3 class="center-align">RAM</h3>
+          <p class="imgSize icon_ram center-align">
+              <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_ram_status">
+                  <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/red_ram.svg"/>
+              </a>
+          </p>
+      </html>   
+      <html id="storage_uk_2" depends="$icon_show_Green$">
+                <h3 class="center-align">Storage</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_disk_status">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Storage_Green.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html id="storage_uk_3" depends="$icon_show_Orange$">
+                <h3 class="center-align">Storage</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_disk_status">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Storage_Orange.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Red$">
+                <h3 class="center-align">Storage</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_disk_status">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Storage_Red.svg"/>
+                    </a>
+                </p>
+            </html>
+      <single id="disk_status_4">
+        <search>
+          <progress>
+            <condition match="'result.Value' &lt;= &quot;80&quot;">
+              <set token="icon_show_Green">true</set>
+              <unset token="icon_show_Orange"></unset>
+              <unset token="icon_show_Red"></unset>
+            </condition>
+            <condition match="'result.Value' &gt;= &quot;80&quot; &amp;&amp; 'result.Value' &lt;= &quot;90&quot;">
+              <unset token="icon_show_Green"></unset>
+              <set token="icon_show_Orange">true</set>
+              <unset token="icon_show_Red"></unset>
+            </condition>
+            <condition match="'result.Value' &gt;= &quot;90&quot;">
+              <unset token="icon_show_Green"></unset>
+              <unset token="icon_show_Orange"></unset>
+              <set token="icon_show_Red">true</set>
+            </condition>
+          </progress>
+          <query>|`ams_disk_status`</query>
+          <earliest>-4h@h</earliest>
+          <latest></latest>
+          <sampleRatio>1</sampleRatio>
+          <refresh>30s</refresh>
+          <refreshType>delay</refreshType>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.00</option>
+        <option name="rangeColors">["0x53a051","0xf1813f","0xdc4e41","0xdc4e41"]</option>
+        <option name="rangeValues">[80,90,100]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">0</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">small</option>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-1h</option>
+        <option name="unitPosition">before</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">0</option>
+      </single>
+      <html id="cpu_usage_uk_1" depends="$icon_show_Green$">
+                <h3 class="center-align">CPU</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_disk__cpu_dashboard">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/CPU_Green.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html id="cpu_usage_uk_2" depends="$icon_show_Orange$">
+                <h3 class="center-align">CPU</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_disk__cpu_dashboard">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/CPU_Orange.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html id="cpu_usage_uk_3" depends="$icon_show_Red$">
+                <h3 class="center-align">CPU</h3>
+                <p class="imgSize center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_disk__cpu_dashboard">
+                        <img hspace="5" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/CPU_Red.svg"/>
+                    </a>
+                </p>
+            </html>
+      <single id="cpu_usage_4">
+        <search>
+          <progress>
+            <condition match="'result.CPU' &lt;= &quot;80&quot;">
+              <set token="icon_show_Green">true</set>
+              <unset token="icon_show_Orange"></unset>
+              <unset token="icon_show_Red"></unset>
+            </condition>
+            <condition match="'result.CPU' &gt;= &quot;80&quot; &amp;&amp; 'result.Value' &lt;= &quot;90&quot;">
+              <unset token="icon_show_Green"></unset>
+              <set token="icon_show_Orange">true</set>
+              <unset token="icon_show_Red"></unset>
+            </condition>
+            <condition match="'result.CPU' &gt;= &quot;90&quot;">
+              <unset token="icon_show_Green"></unset>
+              <unset token="icon_show_Orange"></unset>
+              <set token="icon_show_Red">true</set>
+            </condition>
+          </progress>
+          <query>|`ams_processor_status`</query>
+          <earliest>-4h@h</earliest>
+          <latest></latest>
+          <sampleRatio>1</sampleRatio>
+          <refresh>30s</refresh>
+          <refreshType>delay</refreshType>
+        </search>
+        <option name="colorBy">value</option>
+        <option name="colorMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.00</option>
+        <option name="rangeColors">["0x53a051","0xf1813f","0xdc4e41","0xdc4e41"]</option>
+        <option name="rangeValues">[80,90,100]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">0</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">small</option>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-1h</option>
+        <option name="unitPosition">before</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">0</option>
+      </single>
+    </panel>
+  </row>
+  <row id="DB">
+    <panel>
+      <html id="dbheaderReport" depends="$icon_show_Green_ams_report_db_server$">
+                <h1 class="center-align">AMS REPORT DATABASE</h1>
+                <p class="center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_server_dashboard?form.natco=Natco%3D&quot;AMS%20REPORT%20DB&quot;">
+                        <img hspace="5" class="dbSize" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Database_Green.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Red_ams_report_db_server$">
+                <h1 class="center-align">DB</h1>
+                <p class="center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_server_dashboard?form.natco=Natco%3D&quot;AMS%20REPORT%20DB&quot;">
+                        <img hspace="5" class="dbSize" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Database_Red.svg"/>
+                    </a>
+                </p>
+            </html>
+    </panel>
+    <panel>
+      <html id="dbheader" depends="$icon_show_Green_ams_db_server$">
+                <h1 class="center-align">AMS DATABASE</h1>
+                <p class="center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_server_dashboard?form.natco=Natco%3D&quot;AMS%20DB&quot;">
+                        <img hspace="5" class="dbSize" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Database_Green.svg"/>
+                    </a>
+                </p>
+            </html>
+      <html depends="$icon_show_Red_ams_db_server$">
+                <h1 class="center-align">DB</h1>
+                <p class="center-align">
+                    <a target="_blank" href="/app/SA_AI_R_X620_ams_sh/ams_server_dashboard?form.natco=natco%3D&quot;AMS%20DB&quot;">
+                        <img hspace="5" class="dbSize" alt="Logo" src="/static/app/SA_AI_R_X620_ams_sh/images/Database_Red.svg"/>
+                    </a>
+                </p>
+            </html>
+    </panel>
+  </row>
+</dashboard>

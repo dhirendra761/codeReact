@@ -1,0 +1,30 @@
+natco,file_folder,file_transfer_name,job_launch_time,day_difference
+UK,AMS_Employee_Absences,Upload AMS Employee Absences,04:45 (GMT),0
+UK,AMS_Absences_Day1_File1,Upload AMS Absences Day1 File1,06:25 (GMT),0
+UK,AMS_Absences_Day1_File2,Upload AMS Absences Day1 File2,09:55 (GMT),0
+UK,AMS_Absences_Day1_File3,Upload AMS Absences Day1 File3,13:55 (GMT),0
+UK,AMS_Absences_Day1_File4,Upload AMS Absences Day1 File4, 16:25 (GMT),0
+UK,AMS_Absences_Day1_File5,Upload AMS Absences Day1 File5, 21:25 (GMT),0
+UK,SecureTransportUploadLetters,Upload Letters,14:00 (GMT),0
+UK,AMS_Clocking_File1,AMS Clocking File1,06:55 (GMT),0
+UK,AMS_Clocking_File2,AMS Clocking File2,10:25 (GMT),0
+UK,AMS_Clocking_File3,AMS Clocking File3,14:25 (GMT),0
+UK,AMS_Clocking_File4,AMS Clocking File4, 19:55 (GMT),0
+UK,AMS_Clocking_File5,AMS Clocking File5, 22:25 (GMT),0
+UK,SecureTransportBingo,Bingo,09:00 (GMT),-1
+UK,SecureTransportTNEmployees,Transnational Employees,,-1
+UK,SecureTransporEmployees,Employees,06:30 (GMT),-1
+GE,SecureTransportUploadAbsenceLetter,Upload Absence Letters,09:55 (CET),0
+GE,SecureTransportUploadAbsenceTimeData,Upload Absence Time Data,14:45 (CET),0
+GE,SecureTransport,Employees, 03:45 (CET),-1
+ES,SecureTransportUploadAbsence file 1,Upload Absence file 1,8:00 (CET),0
+ES,SecureTransportUploadAbsence file 2,Upload Absence file 2,14:00 (CET),0
+ES,SecureTransportUploadAbsence file 3,Upload Absence file 3,21:30 (CET),0
+ES,SecureTransportDownloadAbsence,Download Absence,07:15 (CET),0
+ES,SecureTransport,Employee,5:30 (CET),-1
+FR,SecureTransportUpload_File1,Upload AMS_1,1:50 (CET),0
+FR,SecureTransportUpload_File2,Upload AMS_2,9:50 (CET),0
+FR,SecureTransportUpload_File3,Upload AMS_3, 16:50 (CET),0
+FR,SecureTransportAbs,SecureTransportAbs,12:45 (CET),-1
+FR,SecureTransportRTW,SecureTransportRTW,15:55 (CET),-1
+FR,SecureTransport,SecureTransport(employee.csv),3:00 (CET),-2

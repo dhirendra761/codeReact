@@ -1,0 +1,117 @@
+<form hideSplunkBar="true" hideEdit="true" refresh="300" stylesheet="ai-x620-ams.css">
+  <label>2.4 - AMS GE CALLTREE REPORTS</label>
+  <fieldset submitButton="false" autoRun="false">
+    <input type="dropdown" token="SortBY">
+      <label>Filtered par</label>
+      <choice value="1y">year</choice>
+      <choice value="1mon">month</choice>
+      <choice value="1d">day</choice>
+      <default>1mon</default>
+      <initialValue>1mon</initialValue>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>Successful and interrupted registrations per day - [AMS-US-62.1]</title>
+      <chart>
+        <search>
+          <query>|`ams_get_us_62_registrations`</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">-45</option>
+        <option name="charting.axisTitleX.text">Absence registration statistics</option>
+        <option name="charting.axisY.abbreviation">auto</option>
+        <option name="charting.axisY.scale">log</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.legend.placement">top</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Germany reports</title>
+      <input type="dropdown" token="Period" searchWhenChanged="true">
+        <label>Select Time Period:</label>
+        <choice value="Last_7_days">Last 7 days</choice>
+        <choice value="Last_month">Previous month</choice>
+        <choice value="Last_6_months">Last 6 months</choice>
+        <choice value="Last_year">Previous year</choice>
+        <choice value="Last_2_years">Last 2 years</choice>
+        <choice value="Last_3_years">Last 3 years</choice>
+        <choice value="Last_5_years">Last 5 years</choice>
+        <change>
+          <condition value="Last_7_days">
+            <set token="earliest">-7d</set>
+            <set token="latest">now</set>
+          </condition>
+          <condition value="Last_month">
+            <set token="earliest">-1mon</set>
+            <set token="latest">now</set>
+          </condition>
+          <condition value="Last_6_months">
+            <set token="earliest">-6mon</set>
+            <set token="latest">now</set>
+          </condition>
+          <condition value="Last_year">
+            <set token="earliest">-1y</set>
+            <set token="latest">now</set>
+          </condition>
+          <condition value="Last_2_years">
+            <set token="earliest">-2y</set>
+            <set token="latest">now</set>
+          </condition>
+          <condition value="Last_3_years">
+            <set token="earliest">-3y</set>
+            <set token="latest">now</set>
+          </condition>
+          <condition value="Last_5_years">
+            <set token="earliest">-5y</set>
+            <set token="latest">now</set>
+          </condition>
+        </change>
+        <default>Last_7_days</default>
+        <initialValue>Last_7_days</initialValue>
+      </input>
+      <chart>
+        <title>Germany reports: Number of Calls forwarded to Manager - [AMS-US-62.2]</title>
+        <search>
+          <query>|`ams_get_us_62_call_forward($SortBY$)`</query>
+              <earliest>$earliest$</earliest>
+              <latest>$latest$</latest>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">-45</option>
+        <option name="charting.axisTitleX.text">TIME RANGE</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.showDataLabels">minmax</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.legend.placement">top</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Germany reports: Number of Calls forwarded to OH - [AMS-US-62.3]</title>
+      <chart>
+        <search>&gt;<query>|`ams_get_us_62_call_forward_OH($SortBY$)`</query>
+              <earliest>$earliest$</earliest>
+              <latest>$latest$</latest>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">-45</option>
+        <option name="charting.axisTitleX.text">TIME RANGE</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.showDataLabels">minmax</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.legend.placement">top</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+</form>

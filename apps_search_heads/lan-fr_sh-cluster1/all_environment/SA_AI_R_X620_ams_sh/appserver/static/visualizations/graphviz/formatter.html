@@ -1,0 +1,71 @@
+<form class="splunk-formatter-section" section-label="Engine options">
+    <splunk-control-group label="Engine">
+        <splunk-select name="{{VIZ_NAMESPACE}}.engine" value="dot">
+		<option value="dot">dot</option>
+		<option value="circo">circo</option>
+		<option value="fdp">fdp</option>
+		<option value="neato">neato</option>
+		<option value="osage">osage</option>
+		<option value="patchwork">patchwork</option>
+		<option value="twopi">twopi</option>
+        </splunk-select>
+    </splunk-control-group>
+    <splunk-control-group label="Memory allowed (bytes)">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.totalMemory" value="8388608">
+        </splunk-text-input>
+    </splunk-control-group>
+</form>
+<form class="splunk-formatter-section" section-label="Size options">
+    <splunk-control-group label="Width (px)">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.width" value="">
+        </splunk-text-input>
+    </splunk-control-group>
+    <splunk-control-group label="Height (px)">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.height" value="">
+        </splunk-text-input>
+    </splunk-control-group>
+    <splunk-control-group label="Scale">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.scale" value="1">
+        </splunk-text-input>
+    </splunk-control-group>
+    <splunk-control-group label="Fit">
+        <splunk-select name="{{VIZ_NAMESPACE}}.fit" value="false">
+		<option value="false">No</option>
+		<option value="true">Yes</option>
+        </splunk-select>
+    </splunk-control-group>
+</form>
+<form class="splunk-formatter-section" section-label="Rendering options">
+    <splunk-control-group label="Horizontal scrollbar">
+        <splunk-select name="{{VIZ_NAMESPACE}}.xScrollbar" value="false">
+		<option value="false">No</option>
+		<option value="true">Yes</option>
+        </splunk-select>
+    </splunk-control-group>
+    <splunk-control-group label="Vertical scrollbar">
+        <splunk-select name="{{VIZ_NAMESPACE}}.yScrollbar" value="false">
+		<option value="false">No</option>
+		<option value="true">Yes</option>
+        </splunk-select>
+    </splunk-control-group>
+    <splunk-control-group label="Zoom">
+        <splunk-select name="{{VIZ_NAMESPACE}}.zoom" value="false">
+		<option value="false">No</option>
+		<option value="true">Yes</option>
+        </splunk-select>
+    </splunk-control-group>
+    <splunk-control-group label="Wait for complete result set">
+        <splunk-select name="{{VIZ_NAMESPACE}}.wait" value="true">
+		<option value="false">No</option>
+		<option value="true">Yes</option>
+        </splunk-select>
+    </splunk-control-group>
+</form>
+<form class="splunk-formatter-section" section-label="Debug">
+    <splunk-control-group label="Display Dot graph on console">
+        <splunk-select name="{{VIZ_NAMESPACE}}.displayGraph" value="false">
+		<option value="false">No</option>
+		<option value="true">Yes</option>
+        </splunk-select>
+    </splunk-control-group>
+</form>

@@ -1,0 +1,95 @@
+<form stylesheet="idoc6.css">
+  <label>NCS-US-12 - NCS - MiniMaster iDoc quality</label>
+  <description>Daily report of rejected employee from the IT50</description>
+  <fieldset submitButton="false">
+    <input type="time" token="field3">
+      <label></label>
+      <default>
+        <earliest>-7d@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>Summary of rejected employees from the IT50</title>
+      <table>
+        <title>Number of rejected employees per date</title>
+        <search ref="Summary of rejected employees from the IT50 (good one)"></search>
+        <option name="count">10</option>
+        <option name="drilldown">none</option>
+        <format type="color" field="Number of rejected employees">
+          <colorPalette type="list">[#53A051,#F1813F,#DC4E41]</colorPalette>
+          <scale type="threshold">0,100</scale>
+        </format>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Details of the summary</title>
+      <input type="multiselect" token="field4" searchWhenChanged="true">
+        <label>Please select an error message</label>
+        <fieldForLabel>NCS_Import_Error_Message</fieldForLabel>
+        <fieldForValue>NCS_Import_Error_Message</fieldForValue>
+        <search>
+          <query>|search tags=NCS_Import_Person_Failed |table NCS_Import_Error_Message</query>
+          <earliest>-30d@d</earliest>
+          <latest>now</latest>
+        </search>
+        <choice value="*">All</choice>
+        <valuePrefix>"</valuePrefix>
+        <valueSuffix>"</valueSuffix>
+        <delimiter>OR NCS_Import_Error_Message=</delimiter>
+        <default>*</default>
+      </input>
+      <input type="multiselect" token="field5">
+        <label>Please select an ID</label>
+        <choice value="*">All</choice>
+        <valuePrefix>"</valuePrefix>
+        <valueSuffix>"</valueSuffix>
+        <delimiter> OR NCS_Import_Id=</delimiter>
+        <fieldForLabel>NCS_Import_Id</fieldForLabel>
+        <fieldForValue>NCS_Import_Id</fieldForValue>
+        <search>
+          <query>|search tags=NCS_Import_Person_Failed |table NCS_Import_Id</query>
+          <earliest>-30d@d</earliest>
+          <latest>now</latest>
+        </search>
+      </input>
+      <input type="multiselect" token="field6">
+        <label>Please select a Name</label>
+        <choice value="*">All</choice>
+        <default>*</default>
+        <valuePrefix>"</valuePrefix>
+        <valueSuffix>"</valueSuffix>
+        <delimiter>OR NCS_Import_Name=</delimiter>
+        <fieldForLabel>NCS_Import_Name</fieldForLabel>
+        <fieldForValue>NCS_Import_Name</fieldForValue>
+        <search>
+          <query>|search tags=NCS_Import_Person_Failed |table NCS_Import_Name</query>
+          <earliest>-30d@d</earliest>
+          <latest>now</latest>
+        </search>
+      </input>
+      <table>
+        <search>
+          <query>index=ai-platform-watchdogng-log sourcetype=watchdogng*
+| search tags=NCS_Import_Person_Failed NCS_Import_Error_Message=$field4$ NCS_Import_Id=$field5$ NCS_Import_Name=$field6$
+| sort -_time
+| convert ctime(_time) timeformat="%d/%m/%y %H:%M:%S"
+| table _time, NCS_Import_Error_Message, NCS_Import_Id, NCS_Import_Name  
+| rename _time as "Date", NCS_Import_Error_Message as "Error message",  NCS_Import_Id as "ID", NCS_Import_Name as "Name"</query>
+          <earliest>$field3.earliest$</earliest>
+          <latest>$field3.latest$</latest>
+        </search>
+        <option name="count">10</option>
+        <option name="refresh.display">progressbar</option>
+        <format type="color" field="error message">
+          <colorPalette type="sharedList"></colorPalette>
+          <scale type="sharedCategory"></scale>
+        </format>
+      </table>
+    </panel>
+  </row>
+</form>

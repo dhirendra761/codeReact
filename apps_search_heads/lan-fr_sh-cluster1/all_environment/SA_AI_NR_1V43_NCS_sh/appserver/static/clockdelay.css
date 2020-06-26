@@ -1,0 +1,90 @@
+
+    body {
+          margin: 0;
+          background: #f2f4f5; 
+		  /* background: #f30707 !important c'est du rouge vener*/
+          color: #3c444d;
+          min-width: 960px;
+    	  font-family: Arial,sans-serif; /*arial en police par défaut*/
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 20px;
+          transition: margin .2s;
+    	  
+		}
+     	div#dashboard1
+	{
+		color: #0d335f;
+		background-color: #0d335f;
+	}
+	
+	div#input1 
+    {
+    	float: right;
+	}
+    
+    /* ajout logo airbus au top */
+	div#view_15947
+    {
+      background-image: url(C:\Program Files\Splunk\etc\apps\monitoring_ncs\appserver\static\pictures);
+      background-size: 187px 60px;  
+      background-repeat: no-repeat;
+      padding-top: 45px;
+   	}
+    
+    /*blue color background */
+   
+    .dashboard-body 
+    {
+      padding: 0 20px 15px;
+      color: #0d335f;
+      background-color: #0d335f;
+      min-height: 500px;
+	}
+    
+    /* size of header "NCS - Event Clock Delay" */
+    
+    	.dashboard-header h2 {
+    	font-size: 37px;
+		color: #f2f4f5 !important;
+    	word-wrap: break-word;
+    	text-rendering: auto !important;
+    	text-transform: none;
+    	line-height: initial;
+    	font-weight: bold !
+    	
+		}
+      /* sous titre du dashboard */
+      p.description 
+      {
+          font-style: normal;
+          font-size: 20px;
+      }
+      
+      /* taille des sous titres avec APD et BDE */
+    h2.panel-title
+    {
+    	font-size: 24px !important;
+    	text-align: center;
+    	color:#0d335f;
+      	font-weight:bold !important;
+    }
+      
+      /* modif taille de la police sous le nombre d'événement  */
+    h3 
+    	{
+    		font-style:normal ;
+       		text-align: center;
+    		font-size: 20px !important;
+   			margin-bottom: 10px !important;
+            font-weight:normal !important;
+   		}
+    
+    text.under-label
+    {
+      font-size: 22px !important;
+      text-align: center !important;
+      color:#0d335f;
+      font-style: bold ;
+	}
+    
