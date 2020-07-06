@@ -21,7 +21,7 @@
     <view name="ams_service_dashboard" />
     <view name="website_monitoring_dashboard" />
     <view name="ams_disk_status" />
-    <view name="ams_ram_status" />
+    <!-- <view name="ams_ram_status" /> -->
    </collection> 
   <view name="dashboards" />
 </nav>

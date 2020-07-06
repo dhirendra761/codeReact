@@ -1,6 +1,6 @@
-<dashboard hideSplunkBar="true" hideFooter="true" hideEdit="true" refresh="300" stylesheet="ai-x620-ams.css">
+<dashboard isVisible="false" hideSplunkBar="true" hideFooter="true" hideEdit="true" refresh="300" stylesheet="ai-x620-ams.css">
   <label>3.7 - AMS RAM STATUS</label>
-  <row>
+  <!-- <row>
     <panel>
       <title>Available Memory</title>
       <single>
@@ -17,7 +17,7 @@
         <option name="useColors">0</option>
       </single>
     </panel>
-  </row>
+  </row> -->
   <row>
     <panel>
       <title>RAM Memory Usage (MB)</title>

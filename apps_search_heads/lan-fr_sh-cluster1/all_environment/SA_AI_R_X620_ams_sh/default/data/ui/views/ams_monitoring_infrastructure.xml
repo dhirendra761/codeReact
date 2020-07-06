@@ -14,7 +14,7 @@
       </condition>
     </progress>
     <query>|`ams_report_db_server`</query>
-    <earliest>-2m@m</earliest>
+    <earliest>-5m@m</earliest>
     <latest>now</latest>
   </search>
   <!--SERVER search for FRANCE  -->
@@ -30,7 +30,7 @@
       </condition>
     </progress>
     <query>|`ams_server_fr`</query>
-    <earliest>-12h@h</earliest>
+    <earliest>-5m@m</earliest>
     <latest>now</latest>
   </search>
   <!--SERVER search for SPAIN  -->
@@ -46,7 +46,7 @@
       </condition>
     </progress>
     <query>|`ams_server_sp`</query>
-    <earliest>-12h@h</earliest>
+    <earliest>-5m@m</earliest>
     <latest>now</latest>
   </search>
   <!--SERVER search for GERMANY  -->
@@ -62,7 +62,7 @@
       </condition>
     </progress>
     <query>|`ams_server_ge`</query>
-    <earliest>-12h@h</earliest>
+    <earliest>-5m@m</earliest>
     <latest>now</latest>
   </search>
   <!--SERVER search for UNITED KINGDOM  -->
@@ -78,7 +78,7 @@
       </condition>
     </progress>
     <query>|`ams_server_uk`</query>
-    <earliest>-12h@h</earliest>
+    <earliest>-5m@m</earliest>
     <latest>now</latest>
   </search>
   <!--WEBSITE Search for FRANCE  -->
@@ -177,7 +177,7 @@
   </search>
   <!--SERVICES Search for SPAIN  -->
   <search base="service_status" id="service_es">
-    <query> | where natco="ES"</query>
+    <query> | where natco="SP"</query>
     <progress>
       <condition match="'job.resultCount' == 0">
         <set token="icon_show_Green_service_es">true</set>
@@ -267,13 +267,13 @@
   <!--RAM Search for FRANCE  -->
   <search id="ams_ram_status">
     <query>|`ams_ram_status`</query>
-    <earliest>-24h@h</earliest>
+    <earliest>-4h@h</earliest>
     <latest>now</latest>
-    <refresh>30s</refresh>
+    <refresh>2h</refresh>
     <refreshType>delay</refreshType>
   </search>
   <search base="ams_ram_status" id="ram_fr">
-    <query>| search natco=FR</query>
+    <query>| search natco="AMS FR"</query>
     <progress>
        <condition match="'result.RAM' &gt; 0 AND 'result.RAM' &lt; 75">
         <set token="icon_show_green_ram_fr">true</set>
@@ -294,7 +294,7 @@
   </search>
   <!--RAM Search for SPAIN  -->
   <search base="ams_ram_status" id="ram_sp">
-    <query>| search natco=SP</query>
+    <query>| search natco="AMS SP"</query>
     <progress>
        <condition match="'result.RAM' &gt; 0 AND 'result.RAM' &lt; 75">
         <set token="icon_show_green_ram_sp">true</set>
@@ -315,7 +315,7 @@
   </search>
   <!--RAM Search for GERMANY  -->
   <search base="ams_ram_status" id="ram_ge">
-    <query>| search natco=GE</query>
+    <query>| search natco="AMS GE"</query>
     <progress>
        <condition match="'result.RAM' &gt; 0 AND 'result.RAM' &lt; 75">
         <set token="icon_show_green_ram_ge">true</set>
@@ -336,7 +336,7 @@
   </search>
   <!--RAM Search for UNITED KINGDOM  -->
   <search base="ams_ram_status" id="ram_uk">
-    <query>| search natco=UK</query>
+    <query>| search natco="AMS UK"</query>
     <progress>
        <condition match="'result.RAM' &gt; 0 AND 'result.RAM' &lt; 75">
         <set token="icon_show_green_ram_uk">true</set>
@@ -368,7 +368,7 @@
       </condition>
     </progress>
     <query>|`ams_db_server`</query>
-    <earliest>-2m@m</earliest>
+    <earliest>-5m@m</earliest>
     <latest>now</latest>
   </search>
   <!--END of SEARCH SECTIONS -->
@@ -512,11 +512,11 @@
               <set token="icon_show_Red">true</set>
             </condition>
           </progress>
-          <query>|`ams_disk_status`</query>
+          <query>|`ams_disk_status` | search host="FR0-VSIAAS-1029"|stats first(Value) as " "</query>
           <earliest>-4h@h</earliest>
           <latest></latest>
           <sampleRatio>1</sampleRatio>
-          <refresh>30s</refresh>
+          <refresh>2h</refresh>
           <refreshType>delay</refreshType>
         </search>
         <option name="colorBy">value</option>
@@ -581,11 +581,11 @@
               <set token="icon_show_Red">true</set>
             </condition>
           </progress>
-          <query>|`ams_processor_status`</query>
+          <query>|`ams_processor_status` | search host="FR0-VSIAAS-1029"</query>
           <earliest>-4h@h</earliest>
           <latest></latest>
           <sampleRatio>1</sampleRatio>
-          <refresh>30s</refresh>
+          <refresh>2h</refresh>
           <refreshType>delay</refreshType>
         </search>
         <option name="colorBy">value</option>
@@ -741,11 +741,11 @@
               <set token="icon_show_Red">true</set>
             </condition>
           </progress>
-          <query>|`ams_disk_status`</query>
+          <query>|`ams_disk_status`| search host="FR0-VSIAAS-1033"|stats first(Value) as " "</query>
           <earliest>-4h@h</earliest>
           <latest></latest>
           <sampleRatio>1</sampleRatio>
-          <refresh>30s</refresh>
+          <refresh>2h</refresh>
           <refreshType>delay</refreshType>
         </search>
         <option name="colorBy">value</option>
@@ -810,11 +810,11 @@
               <set token="icon_show_Red">true</set>
             </condition>
           </progress>
-          <query>|`ams_processor_status`</query>
+          <query>|`ams_processor_status` | search host="FR0-VSIAAS-1033"</query>
           <earliest>-4h@h</earliest>
           <latest></latest>
           <sampleRatio>1</sampleRatio>
-          <refresh>30s</refresh>
+          <refresh>2h</refresh>
           <refreshType>delay</refreshType>
         </search>
         <option name="colorBy">value</option>
@@ -972,11 +972,11 @@
               <set token="icon_show_Red">true</set>
             </condition>
           </progress>
-          <query>|`ams_disk_status`</query>
+          <query>|`ams_disk_status`| search host="FR0-VSIAAS-1033"|stats first(Value) as " "</query>
           <earliest>-4h@h</earliest>
           <latest></latest>
           <sampleRatio>1</sampleRatio>
-          <refresh>30s</refresh>
+          <refresh>2h</refresh>
           <refreshType>delay</refreshType>
         </search>
         <option name="colorBy">value</option>
@@ -1041,11 +1041,11 @@
               <set token="icon_show_Red">true</set>
             </condition>
           </progress>
-          <query>|`ams_processor_status`</query>
+          <query>|`ams_processor_status` | search host="FR0-VSIAAS-1031"</query>
           <earliest>-4h@h</earliest>
           <latest></latest>
           <sampleRatio>1</sampleRatio>
-          <refresh>30s</refresh>
+          <refresh>2h</refresh>
           <refreshType>delay</refreshType>
         </search>
         <option name="colorBy">value</option>
@@ -1201,11 +1201,11 @@
               <set token="icon_show_Red">true</set>
             </condition>
           </progress>
-          <query>|`ams_disk_status`</query>
+          <query>|`ams_disk_status`| search host="FR0-VSIAAS-1035"|stats first(Value) as " "</query>
           <earliest>-4h@h</earliest>
           <latest></latest>
           <sampleRatio>1</sampleRatio>
-          <refresh>30s</refresh>
+          <refresh>2h</refresh>
           <refreshType>delay</refreshType>
         </search>
         <option name="colorBy">value</option>
@@ -1270,11 +1270,11 @@
               <set token="icon_show_Red">true</set>
             </condition>
           </progress>
-          <query>|`ams_processor_status`</query>
+          <query>|`ams_processor_status` | search host="FR0-VSIAAS-1035"</query>
           <earliest>-4h@h</earliest>
           <latest></latest>
           <sampleRatio>1</sampleRatio>
-          <refresh>30s</refresh>
+          <refresh>2h</refresh>
           <refreshType>delay</refreshType>
         </search>
         <option name="colorBy">value</option>

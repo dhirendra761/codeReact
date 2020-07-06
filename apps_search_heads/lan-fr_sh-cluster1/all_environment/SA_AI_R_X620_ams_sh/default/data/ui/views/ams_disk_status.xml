@@ -1,6 +1,6 @@
 <dashboard hideSplunkBar="true" hideFooter="true" hideEdit="true" stylesheet="ai-x620-ams.css" script="cell_fill_gauge.js">
   <label>3.6 - AMS DISK DETAILS</label>
-  <row>
+  <!-- <row>
     <panel>
       <title>Disk Usage</title>
       <table id="table1">
@@ -30,17 +30,17 @@
         <option name="wrap">true</option>
       </table>
     </panel>
-  </row>
+  </row> -->
   <row>
     <panel>
       <title>AMS DISK SPACE AVAILABLE</title>
       <single>
         <search>
-          <query>|`ams_disk_status`</query>
+          <query>|`ams_disk_status`|stats avg(Value) as Value| eval Value=round(Value,2)</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
           <sampleRatio>1</sampleRatio>
-          <refresh>30s</refresh>
+          <refresh>1m</refresh>
           <refreshType>delay</refreshType>
         </search>
         <option name="colorBy">value</option>

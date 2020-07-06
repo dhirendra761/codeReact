@@ -9,15 +9,5 @@ Airbus_AMS_UK,Airbus_AMS_UK,https://airbusfirstcontact.eu.airbus.corp/X620/UK/AM
 Airbus_ape_ES,Airbus_ape_ES,https://ape.eu.airbus.corp/X620/ES/ape/
 Airbus_OHPortal_ES,Airbus_OHPortal_ES,https://ape.eu.airbus.corp/X620/ES/OHPortal/
 Airbus_Tasks_ES,Airbus_Tasks_ES,https://ape.eu.airbus.corp/X620/ES/Tasks/
-Sopra_AMS_FR,Sopra_AMS_FR,https://172.29.52.2/X620/FR/AMSFR/
-Sopra_OHPortal_FR,Sopra_OHPortal_FR,https://172.29.52.2/X620/FR/OHPortal/
-Sopra_OH_GE,Sopra_OH_GE,https://172.29.52.2/X620/GE/OH/
-Sopra_Tasks_GE,Sopra_Tasks_GE,https://172.29.52.2/X620/GE/Tasks/
-Sopra_Reports_GE,Sopra_Reports_GE,https://172.29.52.2/X620/GE/Reports/
-Sopra_OH_UK,Sopra_OH_UK,https://172.29.52.2/X620/UK/OH/
-Sopra_Tasks_UK,Sopra_Tasks_UK,https://172.29.52.2/X620/UK/Tasks
-Sopra_AMS_UK,Sopra_AMS_UK,https://172.29.52.2/X620/UK/AMS/
-Sopra_ape_ES,Sopra_ape_ES,https://172.29.52.2/X620/ES/ape/
-Sopra_OHPortal_ES,Sopra_OHPortal_ES,https://172.29.52.2/X620/ES/OHPortal/
-Sopra_Tasks_ES,Sopra_Tasks_ES,https://172.29.52.2/X620/ES/Tasks/
-Airbus_AMS_FR,Airbus_AMS_FR,https://amsfr-soutiendurantlabsence.eu.airbus.corp/X620/FR/AMSFR/
+Airbus_AMS_FR,Airbus_AMS_FR,https://10.125.88.154/X620/FR/AMSFR/
+Airbus_AMS_OH,Airbus_AMS_OH,https://10.125.88.154/X620/FR/OHPortal/

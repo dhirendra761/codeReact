@@ -19,7 +19,7 @@
       <table>
         <search>
           <query>|`ams_ips_server`|search $natco$| table Time Status IP Natco</query>
-          <earliest>-12h@h</earliest>
+          <earliest>-5m@m</earliest>
           <latest>now</latest>
           <sampleRatio>1</sampleRatio>
         </search>
