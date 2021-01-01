@@ -1,0 +1,4 @@
+i.icon.star:before {
+  content: "\f005" !important;
+  cursor: pointer !important;
+}
